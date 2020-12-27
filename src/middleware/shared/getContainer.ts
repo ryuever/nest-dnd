@@ -1,8 +1,7 @@
 import Dragger from '../../Dragger';
 import { Action } from 'sabar';
-import Container from '../../Container'
-import { Config, OnStartHandlerContext } from '../../types'
-
+import Container from '../../Container';
+import { Config, OnStartHandlerContext } from '../../types';
 
 const shouldAcceptDragger = (containerConfig: Config, dragger: Dragger) => {
   const { draggerSelector, shouldAcceptDragger } = containerConfig;
@@ -94,9 +93,9 @@ const getContainer = (
       dimension: { within },
       containerConfig,
     } = container;
-    // ts-hint: https://stackoverflow.com/questions/54838593/type-number-is-missing-the-following-properties-from-type-number-number
-    const point: [number, number] = [clientX, clientY];
-    if (within(point) && shouldAcceptDragger(containerConfig, dragger)) {
+    // // ts-hint: https://stackoverflow.com/questions/54838593/type-number-is-missing-the-following-properties-from-type-number-number
+    const point = [clientX, clientY];
+    if (within(point as any) && shouldAcceptDragger(containerConfig, dragger)) {
       pendingContainers.push(container);
     }
   }
@@ -105,7 +104,7 @@ const getContainer = (
 
   // in `nested` mode, `horizontal` container is not considered
   if (mode === 'nested') {
-    nextContainer = pendingContainers.filter(container => {
+    nextContainer = pendingContainers.filter((container) => {
       const { orientation } = container.containerConfig;
       return orientation === 'vertical';
     });

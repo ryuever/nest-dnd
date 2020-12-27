@@ -1,11 +1,10 @@
-import { Sorter } from '../types'
+import { Sorter } from '../types';
 class SortedItems<T> {
   public sorter: Sorter<T>;
-  public items: T[];
+  public items: T[] = [];
 
   constructor({ sorter }: { sorter: Sorter<T> }) {
     this.sorter = sorter;
-    this.items = [];
   }
 
   add(item: T) {
@@ -20,7 +19,7 @@ class SortedItems<T> {
 
   findIndex(item: T) {
     const { id } = item as any;
-    return this.items.findIndex(item => (item as any).id === id);
+    return this.items.findIndex((item) => (item as any).id === id);
   }
 
   getSize() {
@@ -31,11 +30,11 @@ class SortedItems<T> {
     return this.items[index];
   }
 
-  slice(...args: [number?, number?]) {
-    return [].slice.apply(this.items, args);
+  slice(...args: Array<any>) {
+    return [].slice.apply(this.items, args as any);
   }
 
-  splice(...args: [number, number?]) {
+  splice(...args: Array<any>) {
     return [].splice.apply(this.items, args as any);
   }
 }

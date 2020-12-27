@@ -109,14 +109,18 @@ export interface DraggerDimension {
   };
 }
 
-export interface Sorter<T> {
+export type Sorter<T> = {
   (a: T, b: T): number;
-}
+};
 
 export interface AxisMeasure {
-  x: ['left', 'right'];
-  y: ['top', 'bottom'];
-  [key: string]: ['top' | 'left', 'right' | 'bottom'];
+  x: Array<'left' | 'right'>;
+  y: Array<'top' | 'bottom'>;
+  [key: string]: any;
+
+  // x: ['left', 'right'];
+  // y: ['top', 'bottom'];
+  // [key: string]: ['top' | 'left', 'right' | 'bottom'];
 }
 
 export interface OrientationToAxis {
@@ -128,7 +132,7 @@ export interface OrientationToAxis {
 export type LoggerComponent = Container | Dragger;
 
 export interface Predicator {
-  (...args: any): boolean;
+  (...args: Array<any>): boolean;
 }
 
 export interface DraggersMap {
@@ -139,9 +143,9 @@ export interface ContainersMap {
   [key: string]: Container;
 }
 
-export type Point = [number, number];
+export type Point = Array<number>;
 
-export type Triangle = [[number, number], [number, number], [number, number]];
+export type Triangle = Array<Point>;
 
 export interface Effect {
   teardown: Function | null | void;
@@ -318,3 +322,13 @@ export interface ImpactContainerEffectHandler {
     isHighlight: boolean;
   }): Function | undefined;
 }
+
+// TODO pending ts issue: cause `error  Parsing error: Cannot read property 'map' of undefined`
+
+// export interface AxisMeasure {
+//   x: ['left', 'right'];
+//   y: ['top', 'bottom'];
+//   [key: string]: ['top' | 'left', 'right' | 'bottom'];
+// }
+// export type Point = [number, number];
+// export type Triangle = [[number, number], [number, number], [number, number]];
