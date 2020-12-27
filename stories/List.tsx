@@ -1,5 +1,5 @@
 import React from 'react'
-import { Droppable } from '../src/react'
+import { Droppable, Draggable } from '../src/react'
 
 const B = (props: any) => {
   const { forwardRef } = props
@@ -13,9 +13,13 @@ const B = (props: any) => {
 
 export default () => {
   return (
-    <Droppable>
-      {/* <div>hello</div> */}
-      <B />
-    </Droppable>
+    <>
+      <Draggable>
+        <div>hello</div>
+      </Draggable>
+      <Droppable>
+        <B />
+      </Droppable>
+    </>
   )
 }
