@@ -1,5 +1,9 @@
 import ContainerManagerImpl from '../ContainerManagerImpl';
-import { Orientation } from './commons';
+import {
+  Orientation,
+  ImpactDraggerEffectHandler,
+  DraggerEffectHandler,
+} from './commons';
 
 // export enum Orientation {
 //   Vertical = 'vertical',
@@ -14,6 +18,8 @@ export type ContainerConfig = {
   // [key: string]: any;
   orientation: Orientation;
   shouldAcceptDragger?: () => boolean;
+  impactDraggerEffect?: ImpactDraggerEffectHandler;
+  draggerEffect?: DraggerEffectHandler;
 };
 
 export type NestDNDProps = {
