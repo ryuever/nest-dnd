@@ -1,25 +1,33 @@
-import React from 'react'
-import { Droppable, Draggable } from '../src/react'
+import React, { useState, useEffect  } from 'react'
+import { Droppable, Draggable, Provider } from '../src/react'
+import { getGoods, ItemData } from './data-source'
+import './style.css'
 
-const B = (props: any) => {
-  const { forwardRef } = props
-
+const Item = (props) => {
+  const { data } = props
+  const { id, title, description}  = data
   return (
-    <div ref={forwardRef}>
-      next
-    </div>
+    <Draggable>
+      <div className="item">
+        {id}
+      </div>
+    </Draggable>
   )
 }
 
 export default () => {
-  return (
-    <>
-      <Draggable>
-        <div>hello</div>
-      </Draggable>
+  const [data, setData] = useState([] as Array<ItemData>)
+  useEffect(() => {
+    getGoods({ page: 0 }).then(data => setData(data as Array<ItemData>))
+  }, [])
+
+  return(
+    <Provider>
       <Droppable>
-        <B />
+        <div className="container">
+          {data.map(item => <Item data={item} key={item.id} />)}
+        </div>
       </Droppable>
-    </>
+    </Provider>
   )
 }
