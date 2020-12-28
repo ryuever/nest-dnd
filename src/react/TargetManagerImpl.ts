@@ -1,5 +1,4 @@
 import { Subscriptions } from './types';
-
 import SourceManagerImpl from './SourceManagerImpl';
 
 let count = 0;

@@ -1,15 +1,14 @@
 import { createContext } from 'react';
-import TargetManagerImpl from './TargetManagerImpl';
-import ProviderManagerImpl from './ProviderManagerImpl';
+import { NestDND, ContainerManagerImpl } from '../';
 
 const defaultContextValue = {
-  targetContext: null,
+  container: null,
   provider: null,
 };
 
 export type NestDNDContext = {
-  targetContext: null | TargetManagerImpl;
-  provider: null | ProviderManagerImpl;
+  container: null | ContainerManagerImpl;
+  provider: null | NestDND;
 };
 
 export default createContext<NestDNDContext>(defaultContextValue);

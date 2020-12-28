@@ -45,7 +45,6 @@ const getRawInfo = ({
   liftUpVDragger: Dragger;
   isNested: boolean;
 }): RawInfo | null => {
-  // console.log('candidateContainerElement ', candidateContainerElement)
   const vContainer = getVContainer(candidateContainerElement, vContainers);
 
   if (!vContainer) return null;
@@ -58,13 +57,6 @@ const getRawInfo = ({
     containerConfig: { orientation },
     children,
   } = vContainer;
-
-  console.log(
-    'vcontainer ',
-    vContainer,
-    liftUpVDragger,
-    shouldAccept(vContainer, liftUpVDragger)
-  );
 
   if (shouldAccept(vContainer, liftUpVDragger)) {
     for (let i = 0; i < children.getSize(); i++) {
@@ -162,8 +154,6 @@ const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
     candidateVDraggerIndex: null,
   } as RawInfo;
 
-  console.log('candiate ', candidateContainerElement);
-
   if (candidateContainerElement) {
     const value = getRawInfo({
       impactPoint,
@@ -174,8 +164,6 @@ const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
       isNested,
     });
     if (value) impactRawInfo = value;
-
-    console.log('value ', value);
   }
 
   context.impactRawInfo = impactRawInfo;
