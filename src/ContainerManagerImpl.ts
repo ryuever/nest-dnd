@@ -22,6 +22,7 @@ class ContainerManagerImpl {
   // TODO: remove
   public el: HTMLElement;
   public containerConfig: ContainerConfig;
+  public id: string;
 
   constructor(props: ContainerManagerImplProps) {
     const { dnd, dndConfig, el, config } = props;
@@ -39,6 +40,9 @@ class ContainerManagerImpl {
     this.containerConfig = config || {
       orientation: 'vertical',
     };
+
+    // TODO:
+    this.id = this._id;
   }
 
   sorter(a: DraggerManagerImpl, b: DraggerManagerImpl): number {

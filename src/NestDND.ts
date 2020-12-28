@@ -43,8 +43,8 @@ class NestDND {
   > = new WeakMap();
   public dndConfig: NestDNDConfig;
 
-  public onStartHandler: Sabar;
-  public onMoveHandler: Sabar;
+  public onStartHandler: Sabar | null;
+  public onMoveHandler: Sabar | null;
   public dndEffects: DndEffects;
   public extra: Extra;
   public impact: Impact;
@@ -59,6 +59,9 @@ class NestDND {
 
     this.impact = {} as any;
     this.sensor = null;
+
+    this.onStartHandler = null;
+    this.onMoveHandler = null;
 
     setTimeout(() => {
       this.onStartHandler = new Sabar({
@@ -86,7 +89,6 @@ class NestDND {
         getDimensions,
         getDimensionsNested,
         validateContainers,
-        // resolveRawPlacedInfo,
         attemptToCreateClone
       );
       this.onMoveHandler.use(
@@ -147,6 +149,7 @@ class NestDND {
     });
     const containerId = container.getId();
     this.keyToContainerMap.set(containerId, container);
+
     setContainerAttributes(container, props.config);
     return {
       container,
@@ -185,8 +188,8 @@ class NestDND {
     this.sensor = new MouseSensor({
       moveAPI: this.moveAPI,
       getClone: this.getClone,
-      onStartHandler: this.onStartHandler,
-      onMoveHandler: this.onMoveHandler,
+      onStartHandler: this.onStartHandler!,
+      onMoveHandler: this.onMoveHandler!,
       getDragger: this.getDragger.bind(this),
       dndEffects: this.dndEffects,
       updateImpact: this.updateImpact,

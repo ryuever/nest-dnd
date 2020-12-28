@@ -26,11 +26,11 @@ export default (props: any) => {
     (el) => {
       if (!el) return;
       elementRef.current = el;
-      el.setAttribute('data-is-container', true);
       const { container: nextContainer, teardown } = provider.addContainer({
         el,
         config: {
-          orientation: Orientation.Horizontal,
+          orientation: Orientation.Vertical,
+          shouldAcceptDragger: () => true,
         },
         parentContainer: container,
       });

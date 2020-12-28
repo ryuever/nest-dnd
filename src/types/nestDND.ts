@@ -13,6 +13,7 @@ export type NestDNDConfig = {
 export type ContainerConfig = {
   // [key: string]: any;
   orientation: Orientation;
+  shouldAcceptDragger?: () => boolean;
 };
 
 export type NestDNDProps = {

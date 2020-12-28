@@ -63,7 +63,6 @@ const getRawInfo = ({
       const vDragger = children.getItem(i);
       // `inNested` mode, horizontal container's sensitive areas is on two sides.
       if (isNested && orientation === 'horizontal') {
-        // console.log('vDragger.dimension ', vDragger.dimension, impactPoint)
         const { firstCollisionRect, secondCollisionRect } = vDragger.dimension;
         if (within(firstCollisionRect!, impactPoint)) {
           DEBUG && console.log('hit before ', vContainer.id);
@@ -163,6 +162,7 @@ const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
       liftUpVDragger,
       isNested,
     });
+
     if (value) impactRawInfo = value;
   }
 

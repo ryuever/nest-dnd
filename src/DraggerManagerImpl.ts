@@ -12,6 +12,8 @@ class DraggerManagerImpl {
   public dimension: DraggerDimension;
   public _teardown: null | Function;
 
+  public id: string;
+
   constructor(props: DraggerManagerImplProps) {
     const { container, dnd, el } = props;
     this.container = container;
@@ -21,6 +23,9 @@ class DraggerManagerImpl {
     this._id = draggerKeyExtractor();
     this.dimension = {} as DraggerDimension;
     this._teardown = null;
+
+    // TODO
+    this.id = this._id;
   }
 
   getId() {
