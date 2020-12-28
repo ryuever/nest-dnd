@@ -48,8 +48,8 @@ class Container {
     const { orientation } = this.containerConfig;
     const axis = orientationToAxis[orientation];
     const [minProperty] = axisMeasure[axis];
-    const aValue = a.dimension![minProperty] || 0;
-    const bValue = b.dimension![minProperty] || 0;
+    const aValue = (a.dimension as any)![minProperty] || 0;
+    const bValue = (b.dimension as any)![minProperty] || 0;
     return aValue - bValue;
   }
 

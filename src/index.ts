@@ -96,7 +96,6 @@ class DND {
         extra: this.extra,
         hooks: this.hooks,
         dndConfig: this.dndConfig,
-        // containersEffects: this.containersEffects,
         prevImpact: {},
         dndEffects: new DndEffects(),
       },

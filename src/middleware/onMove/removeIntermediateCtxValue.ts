@@ -3,7 +3,7 @@ import { OnMoveHandleContext } from '../../types';
 
 const removeIntermediateCtxValue = (ctx: object, actions: Action) => {
   const context = ctx as OnMoveHandleContext;
-  delete context.action;
+  delete (context as any).action;
   actions.next();
 };
 

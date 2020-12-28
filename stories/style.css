@@ -1,0 +1,11 @@
+.container {
+  width: 500px;
+  height: 800px;
+}
+
+.item {
+  width: 100%;
+  height: 40px;
+  background: #ffc069;
+  border: solid 1px #69c0ff;
+}

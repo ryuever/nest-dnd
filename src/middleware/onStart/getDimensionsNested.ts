@@ -32,8 +32,8 @@ export default (ctx: object, actions: Action) => {
       right,
       bottom,
       left,
-      [first]: Math.max(rect[first] - collisionPadding, 0),
-      [second]: rect[first],
+      [first]: Math.max((rect as any)[first] - collisionPadding, 0),
+      [second]: (rect as any)[first],
     };
 
     const secondCollisionRect = {
@@ -41,8 +41,8 @@ export default (ctx: object, actions: Action) => {
       right,
       bottom,
       left,
-      [first]: rect[second],
-      [second]: rect[second] + collisionPadding,
+      [first]: (rect as any)[second],
+      [second]: (rect as any)[second] + collisionPadding,
     };
 
     dragger.dimension = {
