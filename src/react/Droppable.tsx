@@ -14,12 +14,17 @@ export default (props: any) => {
 
   invariant(provider, `'Droppable' component should be wrapped in 'Provider'`);
 
-  useEffect(() => () => {
-    if (teardownRef.current) teardownRef.current();
-  });
+  useEffect(
+    () => () => {
+      if (teardownRef.current) teardownRef.current();
+    },
+    []
+  );
 
+  // `setRef` in Droppable will be triggered first.
   const setRef = useCallback(
     (el) => {
+      if (!el) return;
       elementRef.current = el;
       el.setAttribute('data-is-container', true);
       const { container: nextContainer, teardown } = provider.addContainer({
@@ -37,7 +42,7 @@ export default (props: any) => {
   );
 
   return (
-    <context.Provider value={nextContextValues.current}>
+    <context.Provider value={{ ...nextContextValues.current }}>
       {cloneWithRef({ props, setRef })}
     </context.Provider>
   );

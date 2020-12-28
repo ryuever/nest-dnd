@@ -1,6 +1,5 @@
 import React, { useContext, useRef } from 'react';
 import context from './context';
-// import ProviderManagerImpl from './ProviderManagerImpl';
 import { NestDND } from '../';
 
 export default (props: any) => {
@@ -18,7 +17,7 @@ export default (props: any) => {
   }
 
   return (
-    <context.Provider value={nextContextValues.current}>
+    <context.Provider value={{ ...nextContextValues.current }}>
       {React.cloneElement(children, rest)}
     </context.Provider>
   );

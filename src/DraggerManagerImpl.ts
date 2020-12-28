@@ -5,17 +5,19 @@ import NestDND from './NestDND';
 
 class DraggerManagerImpl {
   private _id: string;
-  private _container: ContainerManagerImpl;
+  public container: ContainerManagerImpl;
   private _dnd: NestDND;
+  public el: HTMLElement;
   private _el: HTMLElement;
   public dimension: DraggerDimension;
   public _teardown: null | Function;
 
   constructor(props: DraggerManagerImplProps) {
     const { container, dnd, el } = props;
-    this._container = container;
+    this.container = container;
     this._dnd = dnd;
     this._el = el;
+    this.el = el;
     this._id = draggerKeyExtractor();
     this.dimension = {} as DraggerDimension;
     this._teardown = null;

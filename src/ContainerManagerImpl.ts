@@ -10,26 +10,35 @@ import NestDND from './NestDND';
 import SortedItems from './structure/SortedItems';
 
 class ContainerManagerImpl {
-  private _subscriptions: SortedItems<DraggerManagerImpl>;
+  public children: SortedItems<DraggerManagerImpl>;
   private _id: string;
 
   private dnd: NestDND;
   private dndConfig: NestDNDConfig;
-  private el: HTMLElement;
+  private _el: HTMLElement;
+
   private config: ContainerConfig;
+
+  // TODO: remove
+  public el: HTMLElement;
+  public containerConfig: ContainerConfig;
 
   constructor(props: ContainerManagerImplProps) {
     const { dnd, dndConfig, el, config } = props;
 
     this.dnd = dnd;
     this.dndConfig = dndConfig;
+    this._el = el;
     this.el = el;
     this.config = config;
 
     this._id = containerKeyExtractor();
-    this._subscriptions = new SortedItems<DraggerManagerImpl>({
+    this.children = new SortedItems<DraggerManagerImpl>({
       sorter: this.sorter.bind(this),
     });
+    this.containerConfig = config || {
+      orientation: 'vertical',
+    };
   }
 
   sorter(a: DraggerManagerImpl, b: DraggerManagerImpl): number {
@@ -45,26 +54,25 @@ class ContainerManagerImpl {
     return this._id;
   }
 
+  getDNDConfig() {
+    return this.dndConfig;
+  }
+
+  getDND() {
+    return this.dnd;
+  }
+
   addSubscription(subscriber: DraggerManagerImpl) {
-    this._subscriptions.add(subscriber);
+    this.children.add(subscriber);
     subscriber._teardown = () => {
-      const index = this._subscriptions.findIndex(subscriber);
-      if (index !== -1) this._subscriptions.splice(index, 1);
+      const index = this.children.findIndex(subscriber);
+      if (index !== -1) this.children.splice(index, 1);
     };
   }
 
-  // getSubscriptions() {
-  //   return this._subscriptions;
-  // }
-
-  // addSubscription(subscriber: DraggerManagerImpl) {
-  //   const subscriberId = subscriber.getId();
-  //   this._subscriptions[subscriberId] = subscriber;
-
-  //   return () => {
-  //     delete this._subscriptions[subscriberId];
-  //   };
-  // }
+  getElement() {
+    return this._el;
+  }
 }
 
 export default ContainerManagerImpl;

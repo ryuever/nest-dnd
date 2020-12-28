@@ -2,8 +2,6 @@ import { useRef, useCallback, useContext, useEffect } from 'react';
 import invariant from 'invariant';
 import cloneWithRef from './cloneWithRef';
 import context from './context';
-// import SourceManagerImpl from './SourceManagerImpl'
-// import { DraggerManagerImpl } from '../';
 
 // https://github.com/react-dnd/react-dnd/blob/main/packages/react-dnd/src/common/wrapConnectorHooks.ts#L21
 export default (props: any) => {
@@ -19,23 +17,23 @@ export default (props: any) => {
 
   const setRef = useCallback(
     (el) => {
+      if (!el) return;
       elementRef.current = el;
       el.setAttribute('data-is-dragger', true);
       teardownRef.current = provider?.addDragger({
         container,
         el,
       });
-      // teardownRef.current = container.addSubscription(new DraggerManagerImpl({
-      //   container,
-      //   el,
-      // }))
     },
     [provider, container]
   );
 
-  useEffect(() => () => {
-    if (teardownRef.current) teardownRef.current();
-  });
+  useEffect(
+    () => () => {
+      if (teardownRef.current) teardownRef.current();
+    },
+    []
+  );
 
   return cloneWithRef({ props, setRef });
 };

@@ -1,9 +1,10 @@
 import ContainerManagerImpl from '../ContainerManagerImpl';
+import { Orientation } from './commons';
 
-export enum Orientation {
-  Vertical = 'vertical',
-  Horizontal = 'horizontal',
-}
+// export enum Orientation {
+//   Vertical = 'vertical',
+//   Horizontal = 'horizontal',
+// }
 
 export type NestDNDConfig = {
   [key: string]: any;
