@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useContext, useEffect } from 'react';
 import invariant from 'invariant';
 import cloneWithRef from './cloneWithRef';
 import context from './context';
-import TargetManagerImpl from './TargetManagerImpl';
+import { Orientation } from '../';
 
 // https://github.com/react-dnd/react-dnd/blob/main/packages/react-dnd/src/common/wrapConnectorHooks.ts#L21
 export default (props: any) => {
@@ -10,28 +10,39 @@ export default (props: any) => {
   const nextContextValues = useRef(contextValues);
   const elementRef = useRef();
   const teardownRef = useRef<Function>();
-  const { provider } = contextValues;
+  const { provider, container } = contextValues;
 
   invariant(provider, `'Droppable' component should be wrapped in 'Provider'`);
 
-  useEffect(() => () => {
-    if (teardownRef.current) teardownRef.current();
-  });
+  useEffect(
+    () => () => {
+      if (teardownRef.current) teardownRef.current();
+    },
+    []
+  );
 
+  // `setRef` in Droppable will be triggered first.
   const setRef = useCallback(
     (el) => {
+      if (!el) return;
       elementRef.current = el;
-      el.setAttribute('data-is-container', true);
-      nextContextValues.current.targetContext = new TargetManagerImpl();
-      teardownRef.current = provider.addSubscription(
-        nextContextValues.current.targetContext
-      );
+      const { container: nextContainer, teardown } = provider.addContainer({
+        el,
+        config: {
+          orientation: Orientation.Vertical,
+          shouldAcceptDragger: () => true,
+        },
+        parentContainer: container,
+      });
+
+      nextContextValues.current.container = nextContainer;
+      teardownRef.current = teardown;
     },
-    [provider]
+    [provider, container]
   );
 
   return (
-    <context.Provider value={nextContextValues.current}>
+    <context.Provider value={{ ...nextContextValues.current }}>
       {cloneWithRef({ props, setRef })}
     </context.Provider>
   );

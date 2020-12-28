@@ -180,7 +180,6 @@ export interface Impact {
 
 export interface MoveAPI {
   (): {
-    hooks: DndHooks;
     prevImpact: Impact;
   };
 }

@@ -45,7 +45,6 @@ const getRawInfo = ({
   liftUpVDragger: Dragger;
   isNested: boolean;
 }): RawInfo | null => {
-  // console.log('candidateContainerElement ', candidateContainerElement)
   const vContainer = getVContainer(candidateContainerElement, vContainers);
 
   if (!vContainer) return null;
@@ -59,19 +58,11 @@ const getRawInfo = ({
     children,
   } = vContainer;
 
-  console.log(
-    'vcontainer ',
-    vContainer,
-    liftUpVDragger,
-    shouldAccept(vContainer, liftUpVDragger)
-  );
-
   if (shouldAccept(vContainer, liftUpVDragger)) {
     for (let i = 0; i < children.getSize(); i++) {
       const vDragger = children.getItem(i);
       // `inNested` mode, horizontal container's sensitive areas is on two sides.
       if (isNested && orientation === 'horizontal') {
-        // console.log('vDragger.dimension ', vDragger.dimension, impactPoint)
         const { firstCollisionRect, secondCollisionRect } = vDragger.dimension;
         if (within(firstCollisionRect!, impactPoint)) {
           DEBUG && console.log('hit before ', vContainer.id);
@@ -162,8 +153,6 @@ const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
     candidateVDraggerIndex: null,
   } as RawInfo;
 
-  console.log('candiate ', candidateContainerElement);
-
   if (candidateContainerElement) {
     const value = getRawInfo({
       impactPoint,
@@ -173,9 +162,8 @@ const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
       liftUpVDragger,
       isNested,
     });
-    if (value) impactRawInfo = value;
 
-    console.log('value ', value);
+    if (value) impactRawInfo = value;
   }
 
   context.impactRawInfo = impactRawInfo;

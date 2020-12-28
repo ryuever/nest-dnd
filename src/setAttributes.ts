@@ -1,6 +1,6 @@
-import { ResultConfig, DraggersMap, ContainersMap, Point } from './types';
-import Container from './Container';
-import Dragger from './Dragger';
+import { ContainerConfig, DraggersMap, ContainersMap, Point } from './types';
+import ContainerManagerImpl from './ContainerManagerImpl';
+import DraggerManagerImpl from './DraggerManagerImpl';
 import closest from './closest';
 
 export const draggerSelector = '[data-is-dragger="true"]';
@@ -23,12 +23,12 @@ export const setCloneAttributes = (el: HTMLElement) => {
 };
 
 export const setContainerAttributes = (
-  container: Container,
-  config: ResultConfig
+  container: ContainerManagerImpl,
+  config: ContainerConfig
 ) => {
   const { orientation } = config;
-  const { id } = container;
-  const { el } = container;
+  const id = container.getId();
+  const el = container.getElement();
 
   el.setAttribute('data-is-container', 'true');
   el.setAttribute('data-container-id', id);
@@ -36,12 +36,12 @@ export const setContainerAttributes = (
 };
 
 export const setDraggerAttributes = (
-  container: Container,
-  dragger: Dragger
+  container: ContainerManagerImpl,
+  dragger: DraggerManagerImpl
 ) => {
-  const containerId = container.id;
-  const draggerId = dragger.id;
-  const { el } = dragger;
+  const containerId = container.getId();
+  const draggerId = dragger.getId();
+  const el = dragger.getElement();
   el.setAttribute('data-is-dragger', 'true');
   el.setAttribute('data-dragger-id', draggerId);
   el.setAttribute('data-container-context', containerId);
@@ -103,8 +103,6 @@ export const containerElementFromPoint = (point: Point) => {
   const elements = document.elementsFromPoint(x, y);
   if (!elements) return null;
 
-  console.log('elements ', elements);
-
   const len = elements.length;
   let candidate = null;
 
@@ -116,8 +114,6 @@ export const containerElementFromPoint = (point: Point) => {
       break;
     }
   }
-
-  console.log('candidate ', candidate, closest(candidate, containerSelector));
 
   // Maybe closest is not needed... loop `elements` util find the first
   // element matches dragger selector.

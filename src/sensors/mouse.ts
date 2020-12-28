@@ -1,10 +1,8 @@
 import { bindEvents } from '../commons/bindEvents';
 import { findClosestDraggerElementFromEvent } from '../find';
-import { hasDraggerHandlerMatched } from './utils';
 import {
   MoveAPI,
   GetClone,
-  ResultConfig,
   Impact,
   MoveHandlerOutput,
   ResultDNDConfig,
@@ -20,8 +18,7 @@ class Mouse {
   private getClone: GetClone;
   private onStartHandler: Sabar;
   private onMoveHandler: Sabar;
-  private getDragger: (id: string) => Dragger;
-  private configs: ResultConfig[];
+  private getDragger: (el: HTMLElement) => Dragger;
   private dndEffects: DndEffects;
   private updateImpact: (impact: Impact) => void;
   private dndConfig: ResultDNDConfig;
@@ -32,7 +29,6 @@ class Mouse {
     onStartHandler,
     onMoveHandler,
     getDragger,
-    configs,
     dndEffects,
     updateImpact,
     dndConfig,
@@ -41,8 +37,7 @@ class Mouse {
     getClone: GetClone;
     onStartHandler: Sabar;
     onMoveHandler: Sabar;
-    getDragger: (id: string) => Dragger;
-    configs: ResultConfig[];
+    getDragger: (el: HTMLElement) => Dragger;
     dndEffects: DndEffects;
     updateImpact: (impact: Impact) => void;
     dndConfig: ResultDNDConfig;
@@ -52,7 +47,6 @@ class Mouse {
     this.getDragger = getDragger;
     this.onStartHandler = onStartHandler;
     this.onMoveHandler = onMoveHandler;
-    this.configs = configs;
     this.dndEffects = dndEffects;
     this.updateImpact = updateImpact;
     this.dndConfig = dndConfig;
@@ -64,14 +58,15 @@ class Mouse {
       fn: (event) => {
         const el = findClosestDraggerElementFromEvent(event);
         if (el === -1) return;
-        const { target } = event;
-        if (!hasDraggerHandlerMatched(target as HTMLElement, this.configs))
-          return;
+        // const { target } = event;
+        // if (!hasDraggerHandlerMatched(target as HTMLElement, this.configs))
+        //   return;
         // https://stackoverflow.com/a/19164149/2006805 In order to prevent text
         // selection when moving cursor
         event.preventDefault();
-        const draggerId = el.getAttribute('data-dragger-id');
-        const dragger = this.getDragger(draggerId as string);
+        // const draggerId = el.getAttribute('data-dragger-id');
+        // const dragger = this.getDragger(draggerId as string);
+        const dragger = this.getDragger(el);
         if (!dragger) return;
         const vContainer = dragger.container;
         const liftUpVDraggerIndex = vContainer.children.findIndex(dragger);
