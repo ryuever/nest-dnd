@@ -1,0 +1,32 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepublish": "npm run build"
+  },
+  "name": "@nest-dnd/core",
+  "author": "youchao liu",
+  "module": "dist/core.esm.js",
+  "devDependencies": {
+    "@types/invariant": "^2.2.34",
+    "tslib": "^2.0.0"
+  },
+  "dependencies": {
+    "invariant": "^2.2.4",
+    "sabar": "^0.5.4",
+    "tapable": "^2.2.0"
+  }
+}
