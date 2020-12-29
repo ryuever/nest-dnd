@@ -27,5 +27,8 @@
     "invariant": "^2.2.4",
     "sabar": "^0.5.4",
     "tapable": "^2.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
