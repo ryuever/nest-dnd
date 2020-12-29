@@ -25,6 +25,8 @@ export default (ctx: object, actions: Action) => {
   const draggerKeys = Object.keys(vDraggers);
   const containerKeys = Object.keys(vContainers);
 
+  console.log('dimension ', draggerKeys);
+
   draggerKeys.forEach((key) => {
     const dragger = vDraggers[key];
     const rect = getDimension(dragger);

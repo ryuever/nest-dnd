@@ -6,10 +6,12 @@ import context from './context';
 // https://github.com/react-dnd/react-dnd/blob/main/packages/react-dnd/src/common/wrapConnectorHooks.ts#L21
 export default (props: any) => {
   const contextValues = useContext(context);
-  const nextContextValues = useRef(contextValues);
+  // should be destructor or `nextContextValues.current.container` will cause error
+  const nextContextValues = useRef({ ...contextValues });
   const elementRef = useRef();
   const teardownRef = useRef<Function>();
   const { provider, container } = contextValues;
+  const isContainerCreatedRef = useRef(false);
   const {
     orientation = 'vertical',
     shouldAcceptDragger = () => true,
@@ -29,6 +31,9 @@ export default (props: any) => {
   const setRef = useCallback(
     (el) => {
       if (!el) return;
+      // make sure container could be only create once
+      if (isContainerCreatedRef.current) return;
+      isContainerCreatedRef.current = true;
       elementRef.current = el;
       const { container: nextContainer, teardown } = provider.addContainer({
         el,
@@ -47,9 +52,10 @@ export default (props: any) => {
               el.style.transform = `translateY(${-height}px)`;
             }
             el.style.transition = 'transform 0.25s ease-in';
+            el.style.zIndex = '1000';
             return () => {
-              // el.style.backgroundColor = 'transparent';
               el.style.transform = `translateY(0px)`;
+              el.style.zIndex = '-1';
             };
           },
         },

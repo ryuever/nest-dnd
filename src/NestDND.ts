@@ -167,6 +167,7 @@ class NestDND {
     });
     container.addSubscription(subscriber);
     setDraggerAttributes(container, subscriber);
+
     return subscriber.teardown;
   }
 
@@ -181,6 +182,7 @@ class NestDND {
   };
 
   updateImpact = (impact: Impact) => {
+    // console.log('impect ', impact)
     this.impact = impact;
   };
 

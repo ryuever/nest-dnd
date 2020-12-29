@@ -28,7 +28,7 @@ const shouldAccept = (vContainer: Container, vDragger: Dragger) => {
   return el.matches(draggerSelector);
 };
 
-const DEBUG = true;
+const DEBUG = false;
 
 const getRawInfo = ({
   impactPoint,
@@ -163,7 +163,14 @@ const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
       isNested,
     });
 
-    if (value) impactRawInfo = value;
+    if (value) {
+      impactRawInfo = value;
+      console.log(
+        'move ',
+        impactRawInfo.candidateVDraggerIndex,
+        impactRawInfo.impactPosition
+      );
+    }
   }
 
   context.impactRawInfo = impactRawInfo;

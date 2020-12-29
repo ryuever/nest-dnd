@@ -53,6 +53,7 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
   const impact = {
     index: initialValue,
     impactVContainer: impactVContainer as Container,
+    impactPosition,
   };
 
   const len = children.getSize();

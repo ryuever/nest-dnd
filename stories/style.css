@@ -1,4 +1,10 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 .container {
+  margin-left: 40px;
   width: 500px;
   height: 800px;
 }
@@ -8,4 +14,5 @@
   height: 40px;
   background: #ffc069;
   border: solid 1px #69c0ff;
+  z-index: -1;
 }

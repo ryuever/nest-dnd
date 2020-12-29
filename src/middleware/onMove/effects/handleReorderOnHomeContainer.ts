@@ -20,7 +20,15 @@ const handleReorderOnHomeContainer = (
     action: { operation, isHomeContainerFocused, effectsManager },
   } = context;
 
+  console.log(
+    'operation ',
+    OnMoveOperation.ReOrder,
+    operation,
+    isHomeContainerFocused
+  );
+
   if (operation !== OnMoveOperation.ReOrder || !isHomeContainerFocused) {
+    console.log('return first');
     actions.next();
     return;
   }
@@ -36,11 +44,13 @@ const handleReorderOnHomeContainer = (
   const {
     containerConfig: { orientation, draggerEffect },
   } = impactVContainer as Container;
+  // current is the old impact
   const currentIndex = context.impact.index || 0;
 
   const measure = orientationToMeasure(orientation);
 
   if (typeof draggerEffect !== 'function') {
+    console.log('return second');
     actions.next();
     return;
   }
@@ -48,10 +58,25 @@ const handleReorderOnHomeContainer = (
   const impact = {
     impactVContainer,
     index: candidateVDraggerIndex,
+    impactPosition,
   };
 
+  console.log(
+    'currentIndex ',
+    currentIndex,
+    candidateVDraggerIndex,
+    currentIndex === candidateVDraggerIndex,
+    measure[0]
+  );
+
   // move down
-  if (currentIndex < (candidateVDraggerIndex as number)) {
+  if (
+    currentIndex < (candidateVDraggerIndex as number) ||
+    (currentIndex === candidateVDraggerIndex &&
+      impactPosition === 'bottom' &&
+      impactPosition !== context.impact.impactPosition)
+  ) {
+    console.log('impact ', impactPosition, measure[0]);
     if (impactPosition === measure[0]) {
       actions.next();
       return;
@@ -84,14 +109,48 @@ const handleReorderOnHomeContainer = (
         teardown,
       });
     }
+
+    const children = impactVContainer?.children;
+
+    // fallback move from outside. Maybe it could be called RangeUpdate!
+    for (let i = liftUpVDraggerIndex + 1; i < candidateVDraggerIndex!; i++) {
+      const dragger = children?.getItem(i);
+      const index = effectsManager!.downstreamDraggersEffects.findIndex(
+        ({ vDragger }) => {
+          return vDragger.id === (dragger as Dragger).id;
+        }
+      );
+      if (index === -1) {
+        const teardown = draggerEffect({
+          el: (dragger as Dragger).el,
+          shouldMove: true,
+          placedPosition: measure[1],
+          downstream: false,
+          dimension: (dragger as Dragger).dimension.rect,
+          isHighlight: true,
+        });
+        effectsManager!.upstreamDraggersEffects.push({
+          vDragger: dragger as Dragger,
+          teardown,
+        });
+      }
+    }
   }
 
   // move up
-  if (currentIndex > (candidateVDraggerIndex as number)) {
+  if (
+    currentIndex > (candidateVDraggerIndex as number) ||
+    (currentIndex === candidateVDraggerIndex &&
+      impactPosition === 'top' &&
+      impactPosition !== context.impact.impactPosition)
+  ) {
     if (impactPosition === measure[1]) {
+      console.log('return 2', measure[1]);
       actions.next();
       return;
     }
+
+    console.log('may move up');
 
     if ((candidateVDraggerIndex as number) < liftUpVDraggerIndex) {
       const teardown = draggerEffect({
@@ -119,6 +178,32 @@ const handleReorderOnHomeContainer = (
         const { teardown } = effectsManager!.upstreamDraggersEffects[index];
         effectsManager!.upstreamDraggersEffects.splice(index, 1);
         if (typeof teardown === 'function') teardown();
+      }
+    }
+
+    const children = impactVContainer?.children;
+
+    // fallback move from outside. Maybe it could be called RangeUpdate!
+    for (let i = candidateVDraggerIndex! + 1; i < liftUpVDraggerIndex; i++) {
+      const dragger = children?.getItem(i);
+      const index = effectsManager!.downstreamDraggersEffects.findIndex(
+        ({ vDragger }) => {
+          return vDragger.id === (dragger as Dragger).id;
+        }
+      );
+      if (index === -1) {
+        const teardown = draggerEffect({
+          el: (dragger as Dragger).el,
+          shouldMove: true,
+          placedPosition: measure[0],
+          downstream: true,
+          dimension: (dragger as Dragger).dimension.rect,
+          isHighlight: true,
+        });
+        effectsManager!.downstreamDraggersEffects.push({
+          vDragger: dragger as Dragger,
+          teardown,
+        });
       }
     }
   }
