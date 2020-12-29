@@ -19,7 +19,6 @@ export default (props: any) => {
     el => {
       if (!el) return;
       elementRef.current = el;
-      el.setAttribute('data-is-dragger', true);
       teardownRef.current = provider?.addDragger({
         container,
         el,
