@@ -165,11 +165,6 @@ const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
 
     if (value) {
       impactRawInfo = value;
-      console.log(
-        'move ',
-        impactRawInfo.candidateVDraggerIndex,
-        impactRawInfo.impactPosition
-      );
     }
   }
 

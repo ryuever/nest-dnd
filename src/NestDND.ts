@@ -182,7 +182,6 @@ class NestDND {
   };
 
   updateImpact = (impact: Impact) => {
-    // console.log('impect ', impact)
     this.impact = impact;
   };
 

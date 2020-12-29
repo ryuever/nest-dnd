@@ -20,15 +20,7 @@ const handleReorderOnHomeContainer = (
     action: { operation, isHomeContainerFocused, effectsManager },
   } = context;
 
-  console.log(
-    'operation ',
-    OnMoveOperation.ReOrder,
-    operation,
-    isHomeContainerFocused
-  );
-
   if (operation !== OnMoveOperation.ReOrder || !isHomeContainerFocused) {
-    console.log('return first');
     actions.next();
     return;
   }
@@ -50,7 +42,6 @@ const handleReorderOnHomeContainer = (
   const measure = orientationToMeasure(orientation);
 
   if (typeof draggerEffect !== 'function') {
-    console.log('return second');
     actions.next();
     return;
   }
@@ -61,14 +52,6 @@ const handleReorderOnHomeContainer = (
     impactPosition,
   };
 
-  console.log(
-    'currentIndex ',
-    currentIndex,
-    candidateVDraggerIndex,
-    currentIndex === candidateVDraggerIndex,
-    measure[0]
-  );
-
   // move down
   if (
     currentIndex < (candidateVDraggerIndex as number) ||
@@ -76,7 +59,6 @@ const handleReorderOnHomeContainer = (
       impactPosition === 'bottom' &&
       impactPosition !== context.impact.impactPosition)
   ) {
-    console.log('impact ', impactPosition, measure[0]);
     if (impactPosition === measure[0]) {
       actions.next();
       return;
@@ -145,12 +127,9 @@ const handleReorderOnHomeContainer = (
       impactPosition !== context.impact.impactPosition)
   ) {
     if (impactPosition === measure[1]) {
-      console.log('return 2', measure[1]);
       actions.next();
       return;
     }
-
-    console.log('may move up');
 
     if ((candidateVDraggerIndex as number) < liftUpVDraggerIndex) {
       const teardown = draggerEffect({
