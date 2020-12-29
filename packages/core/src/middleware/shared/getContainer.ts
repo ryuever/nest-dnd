@@ -104,7 +104,7 @@ const getContainer = (
 
   // in `nested` mode, `horizontal` container is not considered
   if (mode === 'nested') {
-    nextContainer = pendingContainers.filter((container) => {
+    nextContainer = pendingContainers.filter(container => {
       const { orientation } = container.containerConfig;
       return orientation === 'vertical';
     });

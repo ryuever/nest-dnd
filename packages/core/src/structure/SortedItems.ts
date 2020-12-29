@@ -19,7 +19,7 @@ class SortedItems<T> {
 
   findIndex(item: T) {
     const { id } = item as any;
-    return this.items.findIndex((item) => (item as any).id === id);
+    return this.items.findIndex(item => (item as any).id === id);
   }
 
   getSize() {

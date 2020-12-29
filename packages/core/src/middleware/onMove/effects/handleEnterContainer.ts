@@ -44,7 +44,7 @@ const handleEnterContainer = (args: any, ctx: object, actions: Action) => {
     context.impact = {
       impactVContainer: currentImpactVContainer,
       index: null,
-      impactPosition: impactRawInfo.impactPosition
+      impactPosition: impactRawInfo.impactPosition,
     };
   }
 

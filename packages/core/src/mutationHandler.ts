@@ -13,7 +13,7 @@ export default (ctx: DND) => (mutationList: MutationRecord[]) => {
     if (addedNodes.length) {
       let merged = [] as Node[];
 
-      addedNodes.forEach((node) => {
+      addedNodes.forEach(node => {
         if (node && isElement(node)) {
           try {
             merged.push(node);
@@ -28,7 +28,7 @@ export default (ctx: DND) => (mutationList: MutationRecord[]) => {
         }
       });
 
-      merged.forEach((node) => {
+      merged.forEach(node => {
         const containerConfig = matchesContainer(node, configs);
         if (containerConfig !== -1) {
           ctx.handleContainerElement(node as HTMLElement, containerConfig);
@@ -47,7 +47,7 @@ export default (ctx: DND) => (mutationList: MutationRecord[]) => {
     }
 
     if (removedNodes.length) {
-      removedNodes.forEach((node) => {
+      removedNodes.forEach(node => {
         const matchedContainer = matchesContainer(node, configs);
 
         if (matchedContainer !== -1) {

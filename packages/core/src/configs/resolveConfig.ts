@@ -23,7 +23,7 @@ const reservedKeys = [
 ];
 
 export default (configs: Config[], props: DNDConfig): ResultConfig[] => {
-  return configs.map((config) => {
+  return configs.map(config => {
     const next = {
       ...props,
       ...defaultConfig,

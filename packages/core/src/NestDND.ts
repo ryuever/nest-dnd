@@ -133,8 +133,8 @@ class NestDND {
       [key: string]: any;
     };
 
-    this.keyToContainerMap.forEach((container) => {
-      container.children.items.forEach((dragger) => {
+    this.keyToContainerMap.forEach(container => {
+      container.children.items.forEach(dragger => {
         result[dragger.getId()] = dragger;
       });
     });

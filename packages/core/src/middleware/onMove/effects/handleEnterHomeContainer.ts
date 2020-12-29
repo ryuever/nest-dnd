@@ -108,7 +108,7 @@ const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
     effectsManager!.upstreamDraggersEffects.forEach(
       ({ teardown, vDragger }) => {
         const { id } = vDragger;
-        const index = reserved.findIndex((vDragger) => vDragger.id === id);
+        const index = reserved.findIndex(vDragger => vDragger.id === id);
         if (index !== -1) {
           reservedEffects.push({ teardown, vDragger });
         } else if (teardown) teardown();

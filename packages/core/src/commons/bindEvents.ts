@@ -19,7 +19,7 @@ export function bindEvents(
 ) {
   const empty = [] as Binding[];
   const nextBindings = empty.concat(bindings);
-  const unBindings = nextBindings.map((binding) => {
+  const unBindings = nextBindings.map(binding => {
     const options = getOptions(sharedOptions, binding.options);
     // ts-hint: https://github.com/microsoft/TypeScript/issues/28357#issuecomment-436484705
     el.addEventListener(
@@ -39,7 +39,7 @@ export function bindEvents(
 
   // Return a function to unbind events
   return function unbindAll() {
-    unBindings.forEach((unbind) => unbind());
+    unBindings.forEach(unbind => unbind());
   };
 }
 
@@ -51,7 +51,7 @@ export function bindEventsOnce(
 ) {
   const empty = [] as Binding[];
   const nextBindings = empty.concat(bindings);
-  const unBindings = nextBindings.map((binding) => {
+  const unBindings = nextBindings.map(binding => {
     const options = getOptions(sharedOptions, binding.options);
     let unbind = () => {};
 
@@ -74,6 +74,6 @@ export function bindEventsOnce(
 
   // Return a function to unbind events
   return function unbindAll() {
-    unBindings.forEach((unbind) => unbind());
+    unBindings.forEach(unbind => unbind());
   };
 }

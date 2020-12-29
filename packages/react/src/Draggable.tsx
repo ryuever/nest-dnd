@@ -16,7 +16,7 @@ export default (props: any) => {
   );
 
   const setRef = useCallback(
-    (el) => {
+    el => {
       if (!el) return;
       elementRef.current = el;
       el.setAttribute('data-is-dragger', true);

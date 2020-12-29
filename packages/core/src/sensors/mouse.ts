@@ -55,7 +55,7 @@ class Mouse {
   start() {
     bindEvents(window, {
       eventName: 'mousedown',
-      fn: (event) => {
+      fn: event => {
         const el = findClosestDraggerElementFromEvent(event);
         if (el === -1) return;
         // const { target } = event;

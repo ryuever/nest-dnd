@@ -25,7 +25,7 @@ export default (ctx: object, actions: Action) => {
   const draggerKeys = Object.keys(vDraggers);
   const containerKeys = Object.keys(vContainers);
 
-  draggerKeys.forEach((key) => {
+  draggerKeys.forEach(key => {
     const dragger = vDraggers[key];
     const rect = getDimension(dragger);
     dragger.dimension = {
@@ -33,7 +33,7 @@ export default (ctx: object, actions: Action) => {
     };
   });
 
-  containerKeys.forEach((key) => {
+  containerKeys.forEach(key => {
     const container = vContainers[key];
     const rect = getDimension(container);
     container.dimension = {

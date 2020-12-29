@@ -29,7 +29,7 @@ export default (props: any) => {
 
   // `setRef` in Droppable will be triggered first.
   const setRef = useCallback(
-    (el) => {
+    el => {
       if (!el) return;
       // make sure container could be only create once
       if (isContainerCreatedRef.current) return;
@@ -40,7 +40,7 @@ export default (props: any) => {
         config: {
           orientation,
           shouldAcceptDragger,
-          draggerEffect: (options) => {
+          draggerEffect: options => {
             const { el, placedPosition, shouldMove } = options;
 
             el.style.backgroundColor = 'yellow';

@@ -11,7 +11,7 @@ const supportedMatchesName = (() => {
   // See https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
   const candidates = [base, 'msMatchesSelector', 'webkitMatchesSelector'];
 
-  const value = find(candidates, (name) => name in Element.prototype);
+  const value = find(candidates, name => name in Element.prototype);
 
   return value || base;
 })();
