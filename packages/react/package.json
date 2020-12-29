@@ -1,0 +1,44 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepublish": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "name": "@nest-dnd/react",
+  "author": "youchao liu",
+  "module": "dist/react.esm.js",
+  "devDependencies": {
+    "@storybook/addon-essentials": "^6.1.11",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.1.11",
+    "@storybook/addons": "^6.1.11",
+    "@storybook/react": "^6.1.11",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-is": "^17.0.1",
+    "tslib": "^2.0.0",
+    "@types/invariant": "^2.2.34"
+  },
+  "dependencies": {
+    "@nest-dnd/core": "^0.1.0",
+    "invariant": "^2.2.4"
+  }
+}
