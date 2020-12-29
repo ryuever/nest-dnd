@@ -8,3 +8,7 @@ _A dnd library for React/VanillaJS, Maybe Vue/Svelet_
 $ yarn install
 $ yarn storybook
 ```
+
+## Basic examples
+
+![basic](./docs/basic.gif)
