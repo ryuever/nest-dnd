@@ -23,11 +23,18 @@ export default () => {
 
   return(
     <Provider>
-      <Droppable orientation="vertical">
-        <div className="container">
-          {data.map(item => <Item data={item} key={item.id} />)}
-        </div>
-      </Droppable>
+      <div className="wrapper">
+        <Droppable orientation="vertical">
+          <div className="container">
+            {data.map(item => <Item data={item} key={item.id} />)}
+          </div>
+        </Droppable>
+        <Droppable orientation="vertical" key="second">
+          <div className="container">
+            {data.map(item => <Item data={item} key={item.id} />)}
+          </div>
+        </Droppable>
+      </div>
     </Provider>
   )
 }

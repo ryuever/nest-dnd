@@ -57,6 +57,7 @@ const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
     index: positionIndex
       ? (candidateVDraggerIndex as number) + 1
       : (candidateVDraggerIndex as number),
+    impactPosition,
   };
 
   if (candidateVDraggerIndex === liftUpVDraggerIndex) {

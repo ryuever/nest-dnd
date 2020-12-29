@@ -36,6 +36,7 @@ const handleReorderOnHomeContainer = (
   const {
     containerConfig: { orientation, draggerEffect },
   } = impactVContainer as Container;
+  // current is the old impact
   const currentIndex = context.impact.index || 0;
 
   const measure = orientationToMeasure(orientation);
@@ -48,10 +49,16 @@ const handleReorderOnHomeContainer = (
   const impact = {
     impactVContainer,
     index: candidateVDraggerIndex,
+    impactPosition,
   };
 
   // move down
-  if (currentIndex < (candidateVDraggerIndex as number)) {
+  if (
+    currentIndex < (candidateVDraggerIndex as number) ||
+    (currentIndex === candidateVDraggerIndex &&
+      impactPosition === 'bottom' &&
+      impactPosition !== context.impact.impactPosition)
+  ) {
     if (impactPosition === measure[0]) {
       actions.next();
       return;
@@ -84,10 +91,41 @@ const handleReorderOnHomeContainer = (
         teardown,
       });
     }
+
+    const children = impactVContainer?.children;
+
+    // fallback move from outside. Maybe it could be called RangeUpdate!
+    for (let i = liftUpVDraggerIndex + 1; i < candidateVDraggerIndex!; i++) {
+      const dragger = children?.getItem(i);
+      const index = effectsManager!.downstreamDraggersEffects.findIndex(
+        ({ vDragger }) => {
+          return vDragger.id === (dragger as Dragger).id;
+        }
+      );
+      if (index === -1) {
+        const teardown = draggerEffect({
+          el: (dragger as Dragger).el,
+          shouldMove: true,
+          placedPosition: measure[1],
+          downstream: false,
+          dimension: (dragger as Dragger).dimension.rect,
+          isHighlight: true,
+        });
+        effectsManager!.upstreamDraggersEffects.push({
+          vDragger: dragger as Dragger,
+          teardown,
+        });
+      }
+    }
   }
 
   // move up
-  if (currentIndex > (candidateVDraggerIndex as number)) {
+  if (
+    currentIndex > (candidateVDraggerIndex as number) ||
+    (currentIndex === candidateVDraggerIndex &&
+      impactPosition === 'top' &&
+      impactPosition !== context.impact.impactPosition)
+  ) {
     if (impactPosition === measure[1]) {
       actions.next();
       return;
@@ -119,6 +157,32 @@ const handleReorderOnHomeContainer = (
         const { teardown } = effectsManager!.upstreamDraggersEffects[index];
         effectsManager!.upstreamDraggersEffects.splice(index, 1);
         if (typeof teardown === 'function') teardown();
+      }
+    }
+
+    const children = impactVContainer?.children;
+
+    // fallback move from outside. Maybe it could be called RangeUpdate!
+    for (let i = candidateVDraggerIndex! + 1; i < liftUpVDraggerIndex; i++) {
+      const dragger = children?.getItem(i);
+      const index = effectsManager!.downstreamDraggersEffects.findIndex(
+        ({ vDragger }) => {
+          return vDragger.id === (dragger as Dragger).id;
+        }
+      );
+      if (index === -1) {
+        const teardown = draggerEffect({
+          el: (dragger as Dragger).el,
+          shouldMove: true,
+          placedPosition: measure[0],
+          downstream: true,
+          dimension: (dragger as Dragger).dimension.rect,
+          isHighlight: true,
+        });
+        effectsManager!.downstreamDraggersEffects.push({
+          vDragger: dragger as Dragger,
+          teardown,
+        });
       }
     }
   }

@@ -176,6 +176,7 @@ export interface DndHooks {
 export interface Impact {
   impactVContainer: Container | null;
   index: number | null;
+  impactPosition: Position | null;
 }
 
 export interface MoveAPI {
@@ -246,6 +247,7 @@ export interface OnMoveHandleContext {
   impact: {
     impactVContainer: Container | null;
     index: number | null;
+    impactPosition: Position | null;
   };
   output: {
     dragger: HTMLElement;

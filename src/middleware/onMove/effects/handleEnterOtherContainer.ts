@@ -27,7 +27,6 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
   } = impactVContainer as Container;
 
   const measure = orientationToMeasure(orientation);
-  const positionIndex = measure.indexOf(impactPosition as string);
 
   if (typeof containerEffect === 'function') {
     // const teardown = containerEffect({
@@ -46,13 +45,10 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
 
   let initialValue = candidateVDraggerIndex || 0;
 
-  if (positionIndex === 1) {
-    initialValue += 1;
-  }
-
   const impact = {
     index: initialValue,
     impactVContainer: impactVContainer as Container,
+    impactPosition,
   };
 
   const len = children.getSize();
@@ -60,15 +56,19 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
   for (let i = initialValue; i < len; i++) {
     const vDragger = children.getItem(i);
     const isHighlight = i === initialValue;
-    const teardown = draggerEffect({
-      placedPosition: (isHighlight ? impactPosition : measure[0]) as any,
-      shouldMove: !isHighlight || !positionIndex,
-      downstream: !isHighlight || !positionIndex,
-      el: vDragger.el,
-      dimension: vDragger.dimension.rect,
-      isHighlight,
-    });
-    effectsManager!.downstreamDraggersEffects.push({ teardown, vDragger });
+    const falsy = !isHighlight || impactPosition === 'top';
+
+    if (falsy) {
+      const teardown = draggerEffect({
+        placedPosition: (isHighlight ? impactPosition : measure[0]) as any,
+        shouldMove: falsy,
+        downstream: falsy,
+        el: vDragger.el,
+        dimension: vDragger.dimension.rect,
+        isHighlight,
+      });
+      effectsManager!.downstreamDraggersEffects.push({ teardown, vDragger });
+    }
   }
 
   context.impact = impact;

@@ -167,6 +167,7 @@ class NestDND {
     });
     container.addSubscription(subscriber);
     setDraggerAttributes(container, subscriber);
+
     return subscriber.teardown;
   }
 
