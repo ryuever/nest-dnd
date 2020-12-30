@@ -11,6 +11,7 @@ import {
 // }
 
 export type NestDNDConfig = {
+  onDropEnd: Function;
   [key: string]: any;
 };
 
@@ -31,6 +32,7 @@ export type NestDNDProps = {
 };
 
 export type AddContainerProps = {
+  droppableId: string;
   el: HTMLElement;
   // config for container
   config: ContainerConfig;
@@ -41,5 +43,20 @@ export type AddContainerProps = {
 
 export type AddDraggerProps = {
   el: HTMLElement;
+  draggableId: string;
   container: ContainerManagerImpl;
+};
+
+export type DropReason = 'DROP' | 'CANCEL';
+export type DraggableIdPath = Array<string>;
+
+export type DropResult = {
+  dropReason?: DropReason;
+  source: {
+    path: DraggableIdPath;
+  };
+  target: {
+    path: DraggableIdPath;
+    isForwarding: boolean;
+  } | null;
 };

@@ -9,6 +9,7 @@ export default (props: any) => {
   const contextValues = useContext(context);
   const teardownRef = useRef<Function>();
   const { container, provider } = contextValues;
+  const { draggableId, ...rest } = props;
 
   invariant(
     container,
@@ -20,11 +21,12 @@ export default (props: any) => {
       if (!el) return;
       elementRef.current = el;
       teardownRef.current = provider?.addDragger({
+        draggableId,
         container,
         el,
       });
     },
-    [provider, container]
+    [provider, container, draggableId]
   );
 
   useEffect(
@@ -34,5 +36,5 @@ export default (props: any) => {
     []
   );
 
-  return cloneWithRef({ props, setRef });
+  return cloneWithRef({ props: rest, setRef });
 };

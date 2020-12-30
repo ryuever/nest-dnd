@@ -2,6 +2,7 @@ import EffectsManager from './EffectsManager';
 import report from '../../../reporter';
 import Container from '../../../Container';
 import {
+  Impact,
   OnMoveHandleContext,
   OnMoveArgs,
   OnMoveOperation,
@@ -9,7 +10,7 @@ import {
 import { Action } from 'sabar';
 
 const handleEnterContainer = (args: any, ctx: object, actions: Action) => {
-  const { lifeUpDragger, isHomeContainer, prevImpact } = args as OnMoveArgs;
+  const { liftUpVDragger, isHomeContainer, prevImpact } = args as OnMoveArgs;
   const context = ctx as OnMoveHandleContext;
   const { impactRawInfo, dndEffects } = context;
 
@@ -27,7 +28,7 @@ const handleEnterContainer = (args: any, ctx: object, actions: Action) => {
 
     if (!effectsManager) {
       effectsManager = new EffectsManager({
-        dragger: lifeUpDragger,
+        dragger: liftUpVDragger,
         impactContainer: impactVContainer as Container,
       });
 
@@ -45,7 +46,13 @@ const handleEnterContainer = (args: any, ctx: object, actions: Action) => {
       impactVContainer: currentImpactVContainer,
       index: null,
       impactPosition: impactRawInfo.impactPosition,
-    };
+      dropResult: {
+        target: null,
+        source: {
+          path: liftUpVDragger.getPath(),
+        },
+      },
+    } as Impact;
   }
 
   actions.next();

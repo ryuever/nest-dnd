@@ -37,6 +37,10 @@ class SortedItems<T> {
   splice(...args: Array<any>) {
     return [].splice.apply(this.items, args as any);
   }
+
+  sort() {
+    this.items.sort(this.sorter);
+  }
 }
 
 export default SortedItems;

@@ -16,6 +16,7 @@ export default (props: any) => {
     orientation = 'vertical',
     shouldAcceptDragger = () => true,
     transitionMode = 'fluid',
+    droppableId,
     ...restProps
   } = props;
 
@@ -38,6 +39,7 @@ export default (props: any) => {
       elementRef.current = el;
       const { container: nextContainer, teardown } = provider.addContainer({
         el,
+        droppableId,
         config: {
           orientation,
           shouldAcceptDragger,
@@ -49,7 +51,14 @@ export default (props: any) => {
       nextContextValues.current.container = nextContainer;
       teardownRef.current = teardown;
     },
-    [provider, container, orientation, shouldAcceptDragger]
+    [
+      provider,
+      container,
+      orientation,
+      shouldAcceptDragger,
+      droppableId,
+      transitionMode,
+    ]
   );
 
   return (

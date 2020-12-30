@@ -62,60 +62,59 @@ class NestDND {
 
     this.onStartHandler = null;
     this.onMoveHandler = null;
+    this.getDraggers = this.getDraggers.bind(this);
+    this.getContainers = this.getContainers.bind(this);
 
-    setTimeout(() => {
-      this.onStartHandler = new Sabar({
-        ctx: {
-          vDraggers: this.draggers,
-          vContainers: this.containers,
-          extra: this.extra,
-          dndConfig: this.dndConfig,
-          prevImpact: {},
-          dndEffects: new DndEffects(),
-        },
-      });
+    this.onStartHandler = new Sabar({
+      ctx: {
+        getDraggers: this.getDraggers,
+        getContainers: this.getContainers,
+        extra: this.extra,
+        dndConfig: this.dndConfig,
+        prevImpact: {},
+        dndEffects: new DndEffects(),
+      },
+    });
 
-      this.onMoveHandler = new Sabar({
-        ctx: {
-          vDraggers: this.draggers,
-          vContainers: this.containers,
-          dndConfig: this.dndConfig,
-          dndEffects: this.dndEffects,
-          prevImpact: {},
-        },
-      });
+    this.onMoveHandler = new Sabar({
+      ctx: {
+        getDraggers: this.getDraggers,
+        getContainers: this.getContainers,
+        dndConfig: this.dndConfig,
+        dndEffects: this.dndEffects,
+        prevImpact: {},
+      },
+    });
 
-      this.onStartHandler.use(
-        getDimensions,
-        getDimensionsNested,
-        validateContainers,
-        attemptToCreateClone
-      );
-      this.onMoveHandler.use(
-        syncCopyPosition,
-        getImpactRawInfo,
-        addIntermediateCtxValue,
-        handleLeaveContainer,
-        handleLeaveHomeContainer,
-        handleLeaveOtherContainer,
-        handleEnterContainer,
-        handleEnterHomeContainer,
-        handleEnterOtherContainer,
-        handleReorder,
-        handleReorderOnHomeContainer,
-        handleReorderOnOtherContainer,
-        handleImpactDraggerEffect,
-        handleImpactContainerEffect,
-        removeIntermediateCtxValue,
-        () => {}
-      );
+    this.onStartHandler.use(
+      getDimensions,
+      getDimensionsNested,
+      validateContainers,
+      attemptToCreateClone
+    );
+    this.onMoveHandler.use(
+      syncCopyPosition,
+      getImpactRawInfo,
+      addIntermediateCtxValue,
+      handleLeaveContainer,
+      handleLeaveHomeContainer,
+      handleLeaveOtherContainer,
+      handleEnterContainer,
+      handleEnterHomeContainer,
+      handleEnterOtherContainer,
+      handleReorder,
+      handleReorderOnHomeContainer,
+      handleReorderOnOtherContainer,
+      handleImpactDraggerEffect,
+      handleImpactContainerEffect,
+      removeIntermediateCtxValue,
+      () => {}
+    );
 
-      this.initializeSensor();
-    }, 3000);
+    this.initializeSensor();
   }
 
-  // @ts-ignore
-  get containers() {
+  getContainers() {
     const result = {} as {
       [key: string]: any;
     };
@@ -127,8 +126,7 @@ class NestDND {
     return result;
   }
 
-  // @ts-ignore
-  get draggers() {
+  getDraggers() {
     const result = {} as {
       [key: string]: any;
     };
@@ -201,7 +199,8 @@ class NestDND {
 
   getDragger(el: HTMLElement) {
     const draggerId = el.getAttribute('data-dragger-id');
-    return this.draggers[draggerId!];
+    const draggers = this.getDraggers();
+    return draggers[draggerId!];
   }
 }
 

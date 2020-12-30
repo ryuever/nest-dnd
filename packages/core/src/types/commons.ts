@@ -3,6 +3,7 @@ import Container from '../Container';
 import { default as IDragger } from '../Dragger';
 import DndEffects from '../middleware/onMove/effects/DndEffects';
 import EffectsManager from '../middleware/onMove/effects/EffectsManager';
+import { DropResult } from './nestDND';
 
 export interface RectObject {
   top: number;
@@ -177,6 +178,7 @@ export interface Impact {
   impactVContainer: Container | null;
   index: number | null;
   impactPosition: Position | null;
+  dropResult: DropResult;
 }
 
 export interface MoveAPI {
@@ -225,9 +227,12 @@ export interface OnMoveAction {
   effectsManager: null | EffectsManager;
 }
 
+export type GetDraggers = () => VDragger;
+export type GetContainers = () => VContainer;
+
 export interface OnStartHandlerContext {
-  vContainers: VContainer;
-  vDraggers: VDragger;
+  getContainers: GetContainers;
+  getDraggers: GetDraggers;
   extra: Extra;
   dndConfig: GlobalConfig;
   targetContainer: Container;
@@ -238,17 +243,13 @@ export interface OnStartHandlerContext {
 }
 
 export interface OnMoveHandleContext {
-  vContainers: VContainer;
-  vDraggers: VDragger;
+  getContainers: GetContainers;
+  getDraggers: GetDraggers;
   dndConfig: GlobalConfig;
   action: OnMoveAction;
   impactRawInfo: RawInfo;
   dndEffects: DndEffects;
-  impact: {
-    impactVContainer: Container | null;
-    index: number | null;
-    impactPosition: Position | null;
-  };
+  impact: Impact;
   output: {
     dragger: HTMLElement;
     candidateDragger: HTMLElement;

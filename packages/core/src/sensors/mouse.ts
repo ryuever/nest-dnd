@@ -5,8 +5,9 @@ import {
   GetClone,
   Impact,
   MoveHandlerOutput,
-  ResultDNDConfig,
+  NestDNDConfig,
   MoveHandlerResult,
+  DropResult,
 } from '../types';
 import Dragger from '../Dragger';
 import Container from '../Container';
@@ -21,7 +22,7 @@ class Mouse {
   private getDragger: (el: HTMLElement) => Dragger;
   private dndEffects: DndEffects;
   private updateImpact: (impact: Impact) => void;
-  private dndConfig: ResultDNDConfig;
+  private dndConfig: NestDNDConfig;
 
   constructor({
     moveAPI,
@@ -40,7 +41,7 @@ class Mouse {
     getDragger: (el: HTMLElement) => Dragger;
     dndEffects: DndEffects;
     updateImpact: (impact: Impact) => void;
-    dndConfig: ResultDNDConfig;
+    dndConfig: NestDNDConfig;
   }) {
     this.moveAPI = moveAPI;
     this.getClone = getClone;
@@ -74,6 +75,7 @@ class Mouse {
         this.onStartHandler.start({ dragger, event });
         const clone = this.getClone();
         let output: MoveHandlerOutput;
+        let dropResult: DropResult;
 
         // If dragger exists, then start to bind relative listener
         const unbind = bindEvents(window, [
@@ -104,6 +106,20 @@ class Mouse {
                 }) as MoveHandlerResult;
 
                 const { impact } = result;
+                const {
+                  dropResult: {
+                    source: { path: sourcePath },
+                  },
+                } = impact;
+                const target = impact.dropResult.target!;
+                const { path: targetPath, isForwarding } = target;
+                console.log(
+                  'impact result ',
+                  `place ${sourcePath} ${
+                    isForwarding ? 'after' : 'before'
+                  } ${targetPath}`
+                );
+                dropResult = impact.dropResult;
                 output = result.output;
                 if (impact) this.updateImpact(impact);
               } catch (err) {
@@ -116,6 +132,9 @@ class Mouse {
             fn: () => {
               unbind();
               const { dragger } = output || {};
+              if (this.dndConfig.onDropEnd) {
+                this.dndConfig.onDropEnd(dropResult);
+              }
 
               if (this.dndConfig.onDrop && dragger) {
                 this.dndConfig.onDrop(output);

@@ -1,4 +1,4 @@
-import { ContainerConfig, DraggersMap, ContainersMap, Point } from './types';
+import { ContainerConfig, ContainersMap, Point } from './types';
 import ContainerManagerImpl from './ContainerManagerImpl';
 import DraggerManagerImpl from './DraggerManagerImpl';
 import closest from './closest';
@@ -49,15 +49,6 @@ export const setDraggerAttributes = (
 
 export const getVDraggerId = (draggerNode: HTMLElement) => {
   return draggerNode.getAttribute('data-dragger-id');
-};
-
-export const getVDragger = (
-  draggerNode: HTMLElement,
-  vDraggers: DraggersMap
-) => {
-  const vDraggerId = getVDraggerId(draggerNode);
-  if (vDraggerId) return vDraggers[vDraggerId];
-  return null;
 };
 
 export const getVContainerId = (containerNode: HTMLElement) => {

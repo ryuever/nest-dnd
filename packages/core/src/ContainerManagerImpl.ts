@@ -4,7 +4,7 @@ import {
   ContainerConfig,
 } from './types';
 import DraggerManagerImpl from './DraggerManagerImpl';
-import { containerKeyExtractor } from './key';
+// import { containerKeyExtractor } from './key';
 import { orientationToAxis, axisMeasure } from './commons/utils';
 import NestDND from './NestDND';
 import SortedItems from './structure/SortedItems';
@@ -26,7 +26,7 @@ class ContainerManagerImpl {
   public id: string;
 
   constructor(props: ContainerManagerImplProps) {
-    const { dnd, dndConfig, el, config } = props;
+    const { dnd, dndConfig, el, config, droppableId } = props;
 
     this.dnd = dnd;
     this.dndConfig = dndConfig;
@@ -34,7 +34,9 @@ class ContainerManagerImpl {
     this.el = el;
     this._config = config;
 
-    this._id = containerKeyExtractor();
+    this._id = droppableId;
+    // this._id = containerKeyExtractor();
+
     this.children = new SortedItems<DraggerManagerImpl>({
       sorter: this.sorter.bind(this),
     });
@@ -63,8 +65,14 @@ class ContainerManagerImpl {
     const { orientation } = this._config;
     const axis = orientationToAxis[orientation];
     const [minProperty] = axisMeasure[axis];
-    const aValue = (a.dimension as any)![minProperty] || 0;
-    const bValue = (b.dimension as any)![minProperty] || 0;
+    const aValue =
+      a.dimension && a.dimension.rect
+        ? (a.dimension as any)!['rect']![minProperty]
+        : 0;
+    const bValue =
+      b.dimension && b.dimension.rect
+        ? (b.dimension as any)!['rect']![minProperty]
+        : 0;
     return aValue - bValue;
   }
 

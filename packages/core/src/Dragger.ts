@@ -17,6 +17,10 @@ class Dragger {
     this.dimension = {} as DraggerDimension;
   }
 
+  getPath() {
+    return [this.container.id, this.id];
+  }
+
   teardown() {
     if (!this.container) return;
     if (typeof this._teardown === 'function') this._teardown();

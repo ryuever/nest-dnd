@@ -14,7 +14,7 @@ const handleReorderOnHomeContainer = (
   ctx: object,
   actions: Action
 ) => {
-  const { liftUpVDraggerIndex } = args as OnMoveArgs;
+  const { liftUpVDraggerIndex, liftUpVDragger } = args as OnMoveArgs;
   const context = ctx as OnMoveHandleContext;
   const {
     action: { operation, isHomeContainerFocused, effectsManager },
@@ -38,7 +38,6 @@ const handleReorderOnHomeContainer = (
   } = impactVContainer as Container;
   // current is the old impact
   const currentIndex = context.impact.index || 0;
-
   const measure = orientationToMeasure(orientation);
 
   if (typeof draggerEffect !== 'function') {
@@ -46,10 +45,27 @@ const handleReorderOnHomeContainer = (
     return;
   }
 
+  const dropResult = {
+    source: {
+      path: liftUpVDragger.getPath(),
+    },
+    target: {
+      path: candidateVDragger?.getPath(),
+      isForwarding: false,
+    },
+  };
+
+  if (currentIndex === candidateVDraggerIndex) {
+    if (impactPosition === measure[1]) {
+      dropResult.target.isForwarding = true;
+    }
+  }
+
   const impact = {
     impactVContainer,
     index: candidateVDraggerIndex,
     impactPosition,
+    dropResult,
   };
 
   // move down
@@ -63,6 +79,9 @@ const handleReorderOnHomeContainer = (
       actions.next();
       return;
     }
+
+    // placed after candidate
+    dropResult.target.isForwarding = true;
 
     if ((candidateVDraggerIndex as number) <= liftUpVDraggerIndex) {
       const index = effectsManager!.downstreamDraggersEffects.findIndex(

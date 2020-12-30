@@ -1,10 +1,20 @@
 import { orientationToMeasure } from '../../../commons/utils';
 import { Action } from 'sabar';
-import { OnMoveHandleContext, Impact, OnMoveOperation } from '../../../types';
+import {
+  OnMoveHandleContext,
+  Impact,
+  OnMoveOperation,
+  OnMoveArgs,
+} from '../../../types';
 import Container from '../../../Container';
 import Dragger from '../../../Dragger';
 
-const handleReorderOnHomeContainer = (ctx: object, actions: Action) => {
+const handleReorderOnHomeContainer = (
+  args: any,
+  ctx: object,
+  actions: Action
+) => {
+  const { liftUpVDragger } = args as OnMoveArgs;
   const context = ctx as OnMoveHandleContext;
   const {
     action: { operation, isHomeContainerFocused, effectsManager },
@@ -35,11 +45,28 @@ const handleReorderOnHomeContainer = (ctx: object, actions: Action) => {
     return;
   }
 
+  const dropResult = {
+    source: {
+      path: liftUpVDragger.getPath(),
+    },
+    target: {
+      path: candidateVDragger?.getPath(),
+      isForwarding: false,
+    },
+  };
+
   const impact = {
     impactVContainer,
     index: candidateVDraggerIndex,
     impactPosition,
+    dropResult,
   };
+
+  if (currentIndex === candidateVDraggerIndex) {
+    if (impactPosition === measure[1]) {
+      dropResult.target.isForwarding = true;
+    }
+  }
 
   // move down
   if (
@@ -60,6 +87,7 @@ const handleReorderOnHomeContainer = (ctx: object, actions: Action) => {
     );
 
     if (index !== -1) {
+      dropResult.target.isForwarding = true;
       const { teardown } = effectsManager!.downstreamDraggersEffects[index];
       effectsManager!.downstreamDraggersEffects.splice(index, 1);
       if (typeof teardown === 'function') teardown();

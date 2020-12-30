@@ -9,4 +9,5 @@ export type Subscriptions = {
 export type ContainerManagerImplProps = AddContainerProps & {
   dnd: NestDND;
   dndConfig: NestDNDConfig;
+  droppableId: string;
 };

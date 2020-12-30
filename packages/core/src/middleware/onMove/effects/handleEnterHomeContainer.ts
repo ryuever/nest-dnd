@@ -10,7 +10,7 @@ import Container from '../../../Container';
 import Dragger from '../../../Dragger';
 
 const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
-  const { liftUpVDraggerIndex } = args as OnMoveArgs;
+  const { liftUpVDraggerIndex, liftUpVDragger } = args as OnMoveArgs;
   const context = ctx as OnMoveHandleContext;
   const {
     impactRawInfo,
@@ -52,12 +52,23 @@ const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
     return;
   }
 
+  const dropResult = {
+    source: {
+      path: liftUpVDragger.getPath(),
+    },
+    target: {
+      path: candidateVDragger!.getPath(),
+      isForwarding: false,
+    },
+  };
+
   const impact = {
     impactVContainer: impactVContainer as Container,
     index: positionIndex
       ? (candidateVDraggerIndex as number) + 1
       : (candidateVDraggerIndex as number),
     impactPosition,
+    dropResult,
   };
 
   if (candidateVDraggerIndex === liftUpVDraggerIndex) {

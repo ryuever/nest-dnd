@@ -4,7 +4,7 @@ import { NestDND } from '../../core/src';
 // import { NestDND } from '@nest-dnd/core';
 
 export default (props: any) => {
-  const { children, ...rest } = props;
+  const { children, onDropEnd, ...rest } = props;
   const isMountedRef = useRef(false);
   const contextValues = useContext(context);
 
@@ -12,7 +12,9 @@ export default (props: any) => {
 
   if (!isMountedRef.current) {
     nextContextValues.current.provider = new NestDND({
-      config: {},
+      config: {
+        onDropEnd,
+      },
     });
     isMountedRef.current = true;
   }

@@ -1,4 +1,4 @@
-const batchCount = 10
+const batchCount = 20
 
 export type ItemData = {
   id: number;

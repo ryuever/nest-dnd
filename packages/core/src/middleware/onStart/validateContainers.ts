@@ -10,7 +10,8 @@ import { OnStartHandlerContext } from '../../types';
 
 export default (ctx: object, actions: Action) => {
   const context = ctx as OnStartHandlerContext;
-  const { vContainers } = context;
+  const { getContainers } = context;
+  const vContainers = getContainers();
 
   const keys = Object.keys(vContainers);
   const len = keys.length;

@@ -21,16 +21,16 @@ const getSubject = (el: HTMLElement) => {
 
 export default (ctx: object, actions: Action) => {
   const context = ctx as OnStartHandlerContext;
-  const { vDraggers, vContainers } = context;
+  const { getDraggers, getContainers } = context;
+  const vDraggers = getDraggers();
+  const vContainers = getContainers();
   const draggerKeys = Object.keys(vDraggers);
   const containerKeys = Object.keys(vContainers);
 
   draggerKeys.forEach(key => {
     const dragger = vDraggers[key];
     const rect = getDimension(dragger);
-    dragger.dimension = {
-      rect,
-    };
+    (dragger as any).setDimension({ rect });
   });
 
   containerKeys.forEach(key => {

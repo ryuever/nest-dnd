@@ -137,7 +137,10 @@ const getRawInfo = ({
 const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
   const { impactPoint, liftUpVDragger } = args as OnMoveArgs;
   const context = ctx as OnStartHandlerContext;
-  const { vContainers, vDraggers, dndConfig } = context;
+  const { dndConfig, getContainers, getDraggers } = context;
+
+  const vDraggers = getDraggers();
+  const vContainers = getContainers();
   const { isNested } = dndConfig;
 
   // Find the most inner container include point

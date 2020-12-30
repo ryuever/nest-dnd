@@ -1,9 +1,10 @@
 import { orientationToMeasure } from '../../../commons/utils';
 import { Action } from 'sabar';
-import { OnMoveHandleContext } from '../../../types';
+import { OnMoveHandleContext, OnMoveArgs, Impact } from '../../../types';
 import Container from '../../../Container';
 
-const handleEnterOtherContainer = (ctx: object, actions: Action) => {
+const handleEnterOtherContainer = (args: any, ctx: object, actions: Action) => {
+  const { liftUpVDragger } = args as OnMoveArgs;
   const context = ctx as OnMoveHandleContext;
   const {
     impactRawInfo,
@@ -19,7 +20,18 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
     impactVContainer,
     impactPosition,
     candidateVDraggerIndex,
+    candidateVDragger,
   } = impactRawInfo;
+
+  const dropResult = {
+    source: {
+      path: liftUpVDragger.getPath(),
+    },
+    target: {
+      path: candidateVDragger?.getPath(),
+      isForwarding: false,
+    },
+  };
 
   const {
     containerConfig: { containerEffect, draggerEffect, orientation },
@@ -49,6 +61,7 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
     index: initialValue,
     impactVContainer: impactVContainer as Container,
     impactPosition,
+    dropResult,
   };
 
   const len = children.getSize();
@@ -69,10 +82,12 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
         isHighlight,
       });
       effectsManager!.downstreamDraggersEffects.push({ teardown, vDragger });
+    } else {
+      dropResult.target.isForwarding = true;
     }
   }
 
-  context.impact = impact;
+  context.impact = impact as Impact;
 
   actions.next();
 };
