@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontal-container {
+  margin-left: 40px;
+  width: 500px;
+  height: 800px;
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontal-item {
+  width: 40px;
+  height: 500px;
+  background: #ffc069;
+  border: solid 1px #69c0ff;
+  z-index: 0
+}

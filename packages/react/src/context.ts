@@ -1,5 +1,6 @@
 import { createContext } from 'react';
-import { NestDND, ContainerManagerImpl } from '@nest-dnd/core';
+import { NestDND, ContainerManagerImpl } from '../../core/src';
+// import { NestDND, ContainerManagerImpl } from '@nest-dnd/core';
 
 const defaultContextValue = {
   container: null,

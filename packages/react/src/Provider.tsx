@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import context from './context';
-import { NestDND } from '@nest-dnd/core';
+import { NestDND } from '../../core/src';
+// import { NestDND } from '@nest-dnd/core';
 
 export default (props: any) => {
   const { children, ...rest } = props;

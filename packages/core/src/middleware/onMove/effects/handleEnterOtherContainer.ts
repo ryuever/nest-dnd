@@ -56,7 +56,7 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
   for (let i = initialValue; i < len; i++) {
     const vDragger = children.getItem(i);
     const isHighlight = i === initialValue;
-    const falsy = !isHighlight || impactPosition === 'top';
+    const falsy = !isHighlight || impactPosition === measure[0];
 
     if (falsy) {
       const teardown = draggerEffect({

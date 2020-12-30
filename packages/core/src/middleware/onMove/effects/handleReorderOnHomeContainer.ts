@@ -56,7 +56,7 @@ const handleReorderOnHomeContainer = (
   if (
     currentIndex < (candidateVDraggerIndex as number) ||
     (currentIndex === candidateVDraggerIndex &&
-      impactPosition === 'bottom' &&
+      impactPosition === measure[1] &&
       impactPosition !== context.impact.impactPosition)
   ) {
     if (impactPosition === measure[0]) {
@@ -123,7 +123,7 @@ const handleReorderOnHomeContainer = (
   if (
     currentIndex > (candidateVDraggerIndex as number) ||
     (currentIndex === candidateVDraggerIndex &&
-      impactPosition === 'top' &&
+      impactPosition === measure[0] &&
       impactPosition !== context.impact.impactPosition)
   ) {
     if (impactPosition === measure[1]) {

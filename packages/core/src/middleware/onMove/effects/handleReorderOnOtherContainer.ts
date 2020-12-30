@@ -15,9 +15,6 @@ const handleReorderOnHomeContainer = (ctx: object, actions: Action) => {
     return;
   }
 
-  // actions.next()
-  // return
-
   const {
     impactRawInfo: {
       candidateVDragger,
@@ -49,7 +46,7 @@ const handleReorderOnHomeContainer = (ctx: object, actions: Action) => {
     currentIndex < (candidateVDraggerIndex as number) ||
     (currentIndex === candidateVDraggerIndex &&
       impactPosition !== context.impact.impactPosition &&
-      impactPosition === 'bottom')
+      impactPosition === measure[1])
   ) {
     if (impactPosition === measure[0]) {
       actions.next();
@@ -74,7 +71,7 @@ const handleReorderOnHomeContainer = (ctx: object, actions: Action) => {
     currentIndex > (candidateVDraggerIndex as number) ||
     (currentIndex === candidateVDraggerIndex &&
       impactPosition !== context.impact.impactPosition &&
-      impactPosition === 'top')
+      impactPosition === measure[0])
   ) {
     if (impactPosition === measure[1]) {
       actions.next();

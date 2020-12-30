@@ -1,5 +1,5 @@
 import React, { useState, useEffect  } from 'react'
-import { Droppable, Draggable, Provider } from '../packages/react/src'
+import { Droppable, Draggable, Provider } from '../../packages/react/src'
 import { getGoods, ItemData } from './data-source'
 import './style.css'
 
