@@ -30,7 +30,7 @@ export default () => {
   }, [])
 
   const dropEndHandler = (dropResult) => {
-    const { source, target } = dropResult
+    const { source, target, dropReason } = dropResult
     const {
       path: sourcePath
     } = source
@@ -38,6 +38,12 @@ export default () => {
       path: targetPath,
       isForwarding,
     } = target
+
+    if (dropReason === 'CANCEL') {
+      return
+    }
+
+    console.log('result ', dropResult)
 
     const nextData = { ...data }
 
@@ -65,6 +71,7 @@ export default () => {
         else next.splice(itemIndex, 0, removedItem)
       }
     }, nextData)
+    console.log('next data ', nextData)
 
     setData(nextData)
   }

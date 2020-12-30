@@ -70,9 +70,11 @@ class Mouse {
         const dragger = this.getDragger(el);
         if (!dragger) return;
         const vContainer = dragger.container;
+        // will cause sort!!!!
+        this.onStartHandler.start({ dragger, event });
+        // should be placed after sorter
         const liftUpVDraggerIndex = vContainer.children.findIndex(dragger);
 
-        this.onStartHandler.start({ dragger, event });
         const clone = this.getClone();
         let output: MoveHandlerOutput;
         let dropResult: DropResult;
@@ -133,6 +135,14 @@ class Mouse {
               unbind();
               const { dragger } = output || {};
               if (this.dndConfig.onDropEnd) {
+                const { source, target } = dropResult;
+                if (
+                  target &&
+                  JSON.stringify(source.path) === JSON.stringify(target.path)
+                ) {
+                  dropResult.dropReason = 'CANCEL';
+                }
+
                 this.dndConfig.onDropEnd(dropResult);
               }
 

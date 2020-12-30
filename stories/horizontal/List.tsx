@@ -30,7 +30,7 @@ export default () => {
   }, [])
 
   const dropEndHandler = (dropResult) => {
-    const { source, target } = dropResult
+    const { source, target, dropReason } = dropResult
     const {
       path: sourcePath
     } = source
@@ -38,6 +38,10 @@ export default () => {
       path: targetPath,
       isForwarding,
     } = target
+
+    if (dropReason === 'CANCEL') {
+      return
+    }
 
     const nextData = { ...data }
 
