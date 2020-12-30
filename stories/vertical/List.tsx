@@ -5,11 +5,11 @@ import './style.css'
 
 const Item = (props) => {
   const { data } = props
-  const { id, title, description}  = data
+  const { id, description}  = data
   return (
     <Draggable draggableId={id}>
       <div className="item">
-        {id}
+        {`${id} -- ${description}`}
       </div>
     </Draggable>
   )

@@ -5,9 +5,9 @@ import './style.css'
 
 const Item = (props) => {
   const { data } = props
-  const { id, title, description}  = data
+  const { id }  = data
   return (
-    <Draggable>
+    <Draggable draggableId={id}>
       <div className="horizontal-item">
         {id}
       </div>
