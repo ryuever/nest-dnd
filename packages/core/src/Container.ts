@@ -53,6 +53,10 @@ class Container {
     return aValue - bValue;
   }
 
+  getOrientation() {
+    return this.containerConfig.orientation;
+  }
+
   // used for transition
   addDirectChild(dragger: Dragger) {
     this.children.add(dragger);

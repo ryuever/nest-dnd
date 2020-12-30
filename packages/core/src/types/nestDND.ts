@@ -14,12 +14,15 @@ export type NestDNDConfig = {
   [key: string]: any;
 };
 
+export type TransitionMode = 'fluid' | 'drop-line';
+
 export type ContainerConfig = {
   // [key: string]: any;
   orientation: Orientation;
   shouldAcceptDragger?: () => boolean;
   impactDraggerEffect?: ImpactDraggerEffectHandler;
   draggerEffect?: DraggerEffectHandler;
+  transitionMode: TransitionMode;
 };
 
 export type NestDNDProps = {

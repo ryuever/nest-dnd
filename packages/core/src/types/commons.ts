@@ -282,6 +282,7 @@ export interface DraggerEffectHandler {
     placedPosition,
     dimension,
     isHighlight,
+    orientation,
   }: {
     el: HTMLElement;
     shouldMove: boolean;
@@ -289,6 +290,7 @@ export interface DraggerEffectHandler {
     placedPosition: string;
     dimension: RectObject;
     isHighlight: boolean;
+    orientation: Orientation;
   }): Function | undefined;
 }
 
@@ -302,6 +304,7 @@ export interface ImpactDraggerEffectHandler {
     placedPosition,
     dimension,
     isHighlight,
+    orientation,
   }: {
     dragger: HTMLElement;
     container: HTMLElement;
@@ -311,6 +314,7 @@ export interface ImpactDraggerEffectHandler {
     placedPosition: Position;
     dimension: RectObject;
     isHighlight: boolean;
+    orientation: Orientation;
   }): Function | undefined;
 }
 

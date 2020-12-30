@@ -79,6 +79,7 @@ const handleReorderOnHomeContainer = (ctx: object, actions: Action) => {
     }
 
     const teardown = draggerEffect({
+      orientation: impactVContainer!.getOrientation(),
       el: (candidateVDragger as Dragger).el,
       shouldMove: true,
       placedPosition: measure[0],

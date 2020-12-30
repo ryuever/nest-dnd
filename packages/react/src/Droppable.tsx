@@ -15,6 +15,7 @@ export default (props: any) => {
   const {
     orientation = 'vertical',
     shouldAcceptDragger = () => true,
+    transitionMode = 'fluid',
     ...restProps
   } = props;
 
@@ -40,26 +41,7 @@ export default (props: any) => {
         config: {
           orientation,
           shouldAcceptDragger,
-          draggerEffect: options => {
-            const { el, placedPosition, shouldMove } = options;
-
-            el.style.backgroundColor = 'yellow';
-            // or z-index will not work
-            el.style.position = 'relative';
-            const height = 42;
-
-            if (placedPosition === 'left' && shouldMove) {
-              el.style.transform = `translateX(${height}px)`;
-            } else {
-              el.style.transform = `translateX(${-height}px)`;
-            }
-            el.style.transition = 'transform 0.25s ease-in';
-            el.style.zIndex = '1000';
-            return () => {
-              el.style.transform = `translateX(0px)`;
-              el.style.zIndex = '0';
-            };
-          },
+          transitionMode,
         },
         parentContainer: container,
       });

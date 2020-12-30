@@ -42,6 +42,7 @@ const handleLeaveHomeContainer = (args: any, ctx: object, actions: Action) => {
       const vDragger = children.getItem(i);
       const measure = orientationToMeasure(orientation);
       const teardown = draggerEffect({
+        orientation: impactVContainer!.getOrientation(),
         el: vDragger.el,
         shouldMove: true,
         placedPosition: measure[0],

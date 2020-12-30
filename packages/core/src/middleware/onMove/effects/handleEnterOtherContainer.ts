@@ -60,6 +60,7 @@ const handleEnterOtherContainer = (ctx: object, actions: Action) => {
 
     if (falsy) {
       const teardown = draggerEffect({
+        orientation: impactVContainer!.getOrientation(),
         placedPosition: (isHighlight ? impactPosition : measure[0]) as any,
         shouldMove: falsy,
         downstream: falsy,

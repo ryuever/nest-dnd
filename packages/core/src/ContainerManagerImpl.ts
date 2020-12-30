@@ -8,6 +8,7 @@ import { containerKeyExtractor } from './key';
 import { orientationToAxis, axisMeasure } from './commons/utils';
 import NestDND from './NestDND';
 import SortedItems from './structure/SortedItems';
+import fluid from './transitionsHandler/fluid';
 
 class ContainerManagerImpl {
   public children: SortedItems<DraggerManagerImpl>;
@@ -17,7 +18,7 @@ class ContainerManagerImpl {
   private dndConfig: NestDNDConfig;
   private _el: HTMLElement;
 
-  private config: ContainerConfig;
+  private _config: ContainerConfig;
 
   // TODO: remove
   public el: HTMLElement;
@@ -31,7 +32,7 @@ class ContainerManagerImpl {
     this.dndConfig = dndConfig;
     this._el = el;
     this.el = el;
-    this.config = config;
+    this._config = config;
 
     this._id = containerKeyExtractor();
     this.children = new SortedItems<DraggerManagerImpl>({
@@ -43,10 +44,23 @@ class ContainerManagerImpl {
 
     // TODO:
     this.id = this._id;
+
+    this.decorateDraggerEffect();
+  }
+
+  getOrientation() {
+    return this._config.orientation;
+  }
+
+  decorateDraggerEffect() {
+    const { transitionMode } = this._config;
+    if (transitionMode === 'fluid') {
+      this._config.draggerEffect = fluid;
+    }
   }
 
   sorter(a: DraggerManagerImpl, b: DraggerManagerImpl): number {
-    const { orientation } = this.config;
+    const { orientation } = this._config;
     const axis = orientationToAxis[orientation];
     const [minProperty] = axisMeasure[axis];
     const aValue = (a.dimension as any)![minProperty] || 0;

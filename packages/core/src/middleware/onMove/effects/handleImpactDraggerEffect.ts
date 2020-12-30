@@ -43,6 +43,7 @@ const handleImpactDraggerEffect = (args: any, ctx: object, actions: Action) => {
       effectsManager.clearImpactDraggerEffects();
 
       const teardown = impactDraggerEffect({
+        orientation: impactVContainer!.getOrientation(),
         dragger: liftUpVDragger.el,
         container: impactVContainer.el,
         candidateDragger: (candidateVDragger as Dragger).el,

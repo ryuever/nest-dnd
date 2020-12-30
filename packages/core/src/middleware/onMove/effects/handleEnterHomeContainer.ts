@@ -83,6 +83,7 @@ const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
       const isHighlight = initialValue === i;
 
       const teardown = draggerEffect({
+        orientation: impactVContainer!.getOrientation(),
         el: vDragger.el,
         shouldMove: !isHighlight || !positionIndex,
         downstream: !isHighlight || !positionIndex,
