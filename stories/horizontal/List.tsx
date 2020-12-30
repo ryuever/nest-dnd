@@ -20,17 +20,12 @@ export default () => {
     first: [] as Array<ItemData>,
     second: [] as Array<ItemData>,
   })
-  const dataRef = useRef({
-    first: [] as Array<ItemData>,
-    second: [] as Array<ItemData>,
-  })
   useEffect(() => {
     getGoods({ page: 0 }).then((data) => {
-      dataRef.current = {
+      setData({
         first: (data as Array<ItemData>).slice(0, 10),
         second: (data as Array<ItemData>).slice(10),
-      }
-      setData(dataRef.current)
+      })
     })
   }, [])
 
@@ -44,7 +39,7 @@ export default () => {
       isForwarding,
     } = target
 
-    const nextData = { ...dataRef.current }
+    const nextData = { ...data }
 
     let removedItem = null
 
@@ -71,7 +66,6 @@ export default () => {
       }
     }, nextData)
 
-    dataRef.current = nextData
     setData(nextData)
   }
 

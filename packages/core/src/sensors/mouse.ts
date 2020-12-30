@@ -140,6 +140,7 @@ class Mouse {
                 this.dndConfig.onDrop(output);
               }
 
+              // this.updateImpact({} as any);
               this.dndEffects.teardown();
               if (clone) document.body.removeChild(clone);
             },

@@ -26,8 +26,8 @@ const fluid: DraggerEffectHandler = options => {
   el.style.transition = 'transform 0.25s ease-in';
   el.style.zIndex = '1000';
   return () => {
-    el.style.transform = '';
-    // el.style.transform = transform(orientation, 0);
+    el.style.transition = '';
+    el.style.transform = transform(orientation, 0);
     el.style.zIndex = '0';
   };
 };

@@ -157,6 +157,10 @@ class NestDND {
     };
   }
 
+  updateOnDropEnd(onDropEnd: Function) {
+    this.dndConfig.onDropEnd = onDropEnd;
+  }
+
   addDragger(props: AddDraggerProps) {
     const { container } = props;
     const subscriber = new DraggerManagerImpl({

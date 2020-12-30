@@ -4,23 +4,25 @@ import { NestDND } from '../../core/src';
 // import { NestDND } from '@nest-dnd/core';
 
 export default (props: any) => {
-  const { children, onDropEnd, ...rest } = props;
-  const isMountedRef = useRef(false);
+  const { children, onDropEnd, second, ...rest } = props;
   const contextValues = useContext(context);
+  const providerRef = useRef<NestDND | null>(null);
 
-  const nextContextValues = useRef(contextValues);
-
-  if (!isMountedRef.current) {
-    nextContextValues.current.provider = new NestDND({
+  if (!providerRef.current) {
+    providerRef.current = new NestDND({
       config: {
         onDropEnd,
       },
     });
-    isMountedRef.current = true;
+  } else {
+    // should update onDropEnd or data in onDropEnd will not change
+    providerRef.current.updateOnDropEnd(onDropEnd);
   }
 
   return (
-    <context.Provider value={{ ...nextContextValues.current }}>
+    <context.Provider
+      value={{ ...contextValues, provider: providerRef.current! }}
+    >
       {React.cloneElement(children, rest)}
     </context.Provider>
   );
