@@ -9,6 +9,7 @@ import { orientationToAxis, axisMeasure } from './commons/utils';
 import NestDND from './NestDND';
 import SortedItems from './structure/SortedItems';
 import fluid from './transitionsHandler/fluid';
+import { setContainerAttributes } from './setAttributes';
 
 class ContainerManagerImpl {
   public children: SortedItems<DraggerManagerImpl>;
@@ -16,17 +17,18 @@ class ContainerManagerImpl {
 
   private dnd: NestDND;
   private dndConfig: NestDNDConfig;
-  private _el: HTMLElement;
+  private _el: HTMLElement | undefined;
 
   private _config: ContainerConfig;
 
   // TODO: remove
-  public el: HTMLElement;
+  public el: HTMLElement | undefined;
   public containerConfig: ContainerConfig;
+  public _parentContainer: undefined | ContainerManagerImpl;
   public id: string;
 
   constructor(props: ContainerManagerImplProps) {
-    const { dnd, dndConfig, el, config, droppableId } = props;
+    const { dnd, dndConfig, el, config, droppableId, parentContainer } = props;
 
     this.dnd = dnd;
     this.dndConfig = dndConfig;
@@ -48,10 +50,21 @@ class ContainerManagerImpl {
     this.id = this._id;
 
     this.decorateDraggerEffect();
+    this._parentContainer = parentContainer;
+  }
+
+  setRef(el: HTMLElement) {
+    this._el = el;
+    this.el = el;
+    setContainerAttributes(this, this._config);
   }
 
   getOrientation() {
     return this._config.orientation;
+  }
+
+  getParentContainer() {
+    return this._parentContainer;
   }
 
   decorateDraggerEffect() {
