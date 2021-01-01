@@ -8,8 +8,6 @@ import {
   AddDraggerProps,
 } from './types';
 
-import { setContainerAttributes, setDraggerAttributes } from './setAttributes';
-
 import getDimensions from './middleware/onStart/getDimensions';
 import getDimensionsNested from './middleware/onStart/getDimensionsNested';
 import validateContainers from './middleware/onStart/validateContainers';
@@ -148,7 +146,6 @@ class NestDND {
     const containerId = container.getId();
     this.keyToContainerMap.set(containerId, container);
 
-    setContainerAttributes(container, props.config);
     return {
       container,
       teardown: () => {
@@ -168,9 +165,11 @@ class NestDND {
       dnd: this,
     });
     container.addSubscription(subscriber);
-    setDraggerAttributes(container, subscriber);
 
-    return subscriber.teardown;
+    return {
+      dragger: subscriber,
+      teardown: subscriber.teardown,
+    };
   }
 
   moveAPI = () => {

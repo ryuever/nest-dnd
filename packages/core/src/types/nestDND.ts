@@ -33,16 +33,16 @@ export type NestDNDProps = {
 
 export type AddContainerProps = {
   droppableId: string;
-  el: HTMLElement;
+  el?: HTMLElement;
   // config for container
   config: ContainerConfig;
 
   // used for nested mode.
-  parentContainer: ContainerManagerImpl | null;
+  parentContainer: ContainerManagerImpl | undefined;
 };
 
 export type AddDraggerProps = {
-  el: HTMLElement;
+  el?: HTMLElement;
   draggableId: string;
   container: ContainerManagerImpl;
 };
