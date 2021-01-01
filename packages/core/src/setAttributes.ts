@@ -29,7 +29,7 @@ export const setContainerAttributes = (
   const { orientation } = config;
   const id = container.getId();
   const el = container.getElement();
-
+  if (!el) return
   el.setAttribute('data-is-container', 'true');
   el.setAttribute('data-container-id', id);
   el.setAttribute('data-orientation', orientation);
@@ -42,6 +42,7 @@ export const setDraggerAttributes = (
   const containerId = container.getId();
   const draggerId = dragger.getId();
   const el = dragger.getElement();
+  if (!el) return
   el.setAttribute('data-is-dragger', 'true');
   el.setAttribute('data-dragger-id', draggerId);
   el.setAttribute('data-container-context', containerId);
