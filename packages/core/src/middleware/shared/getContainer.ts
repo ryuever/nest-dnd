@@ -12,7 +12,8 @@ const shouldAcceptDragger = (
   if (typeof shouldAcceptDragger === 'function') {
     return shouldAcceptDragger(el!);
   }
-  return false;
+  // return false;
+  return true;
 
   // return el.matches(draggerSelector!);
 };

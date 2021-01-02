@@ -3,6 +3,7 @@ import invariant from 'invariant';
 import cloneWithRef from './cloneWithRef';
 import context from './context';
 import { ContainerManagerImpl, DraggerManagerImpl } from '@nest-dnd/core';
+// import { ContainerManagerImpl, DraggerManagerImpl } from '../../core/src';
 
 // https://github.com/react-dnd/react-dnd/blob/main/packages/react-dnd/src/common/wrapConnectorHooks.ts#L21
 export default (props: any) => {
