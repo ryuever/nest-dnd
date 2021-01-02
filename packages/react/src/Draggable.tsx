@@ -2,6 +2,7 @@ import { useRef, useCallback, useContext, useEffect } from 'react';
 import invariant from 'invariant';
 import cloneWithRef from './cloneWithRef';
 import context from './context';
+// import { DraggerManagerImpl } from '../../core/src';
 import { DraggerManagerImpl } from '@nest-dnd/core';
 
 // https://github.com/react-dnd/react-dnd/blob/main/packages/react-dnd/src/common/wrapConnectorHooks.ts#L21

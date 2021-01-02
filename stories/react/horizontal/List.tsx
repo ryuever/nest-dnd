@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { Droppable, Draggable, Provider } from '../../packages/react/src'
+import React, { useState, useEffect } from 'react'
+import { Droppable, Draggable, Provider } from '../../../packages/react/src'
 import { getGoods, ItemData } from './data-source'
 import './style.css'
 
 const Item = (props) => {
   const { data } = props
-  const { id, description}  = data
+  const { id }  = data
   return (
     <Draggable draggableId={id}>
-      <div className="item">
-        {`${id} -- ${description}`}
+      <div className="horizontal-item">
+        {id}
       </div>
     </Draggable>
   )
@@ -43,8 +43,6 @@ export default () => {
       return
     }
 
-    console.log('result ', dropResult)
-
     const nextData = { ...data }
 
     let removedItem = null
@@ -71,20 +69,20 @@ export default () => {
         else next.splice(itemIndex, 0, removedItem)
       }
     }, nextData)
-    console.log('next data ', nextData)
 
     setData(nextData)
   }
+
   return(
-    <Provider onDropEnd={dropEndHandler} >
+    <Provider onDropEnd={dropEndHandler}>
       <div className="wrapper">
-        <Droppable orientation="vertical" droppableId='first'>
-          <div className="container">
+        <Droppable orientation="horizontal" droppableId="first">
+          <div className="horizontal-container">
             {data.first.map(item => <Item data={item} key={item.id} />)}
           </div>
         </Droppable>
-        <Droppable orientation="vertical" key="second" droppableId='second'>
-          <div className="container">
+        <Droppable orientation="horizontal" droppableId="second">
+          <div className="horizontal-container">
             {data.second.map(item => <Item data={item} key={item.id} />)}
           </div>
         </Droppable>
