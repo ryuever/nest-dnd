@@ -110,7 +110,7 @@ const handleReorderOnHomeContainer = (
 
     const teardown = draggerEffect({
       orientation: impactVContainer!.getOrientation(),
-      el: (candidateVDragger as DraggerManagerImpl).el!,
+      el: (candidateVDragger as DraggerManagerImpl).getElement()!,
       shouldMove: true,
       placedPosition: measure[0],
       downstream: true,

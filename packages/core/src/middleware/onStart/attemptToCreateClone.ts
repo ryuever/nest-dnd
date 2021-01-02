@@ -12,7 +12,7 @@ import { OnStartHandlerContext } from '../../types';
 export default (args: any, ctx: object, actions: Action) => {
   const { dragger }: { dragger: DraggerManagerImpl } = args;
   const context = ctx as OnStartHandlerContext;
-  const { el } = dragger;
+  const el = dragger.getElement();
   context.extra.clone = el!.cloneNode(true) as HTMLElement;
   const rect = el!.getBoundingClientRect();
   const { width, height } = rect;

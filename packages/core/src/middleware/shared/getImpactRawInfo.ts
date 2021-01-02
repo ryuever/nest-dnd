@@ -22,7 +22,7 @@ const shouldAccept = (
   vDragger: DraggerManagerImpl
 ) => {
   const { containerConfig } = vContainer;
-  const { el } = vDragger;
+  const el = vDragger.getElement();
   const { shouldAcceptDragger } = containerConfig;
   if (typeof shouldAcceptDragger === 'function') {
     return shouldAcceptDragger(el!);
@@ -55,7 +55,8 @@ const getRawInfo = ({
 
   // If dragger move on to itself or its children's node container.
   // then return...
-  if (liftUpVDragger.el!.contains(vContainer.el!)) return null;
+  if (liftUpVDragger.getElement()!.contains(vContainer.getElement()!))
+    return null;
 
   const {
     containerConfig: { orientation },
@@ -108,7 +109,7 @@ const getRawInfo = ({
     }
   }
 
-  const containerElement = vContainer.el!;
+  const containerElement = vContainer.getElement()!;
   const nextCandidateContainerElement = closestExclusiveContainerNodeFromElement(
     containerElement
   );

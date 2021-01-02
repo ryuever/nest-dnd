@@ -102,7 +102,7 @@ const handleReorderOnHomeContainer = (
     if ((candidateVDraggerIndex as number) > liftUpVDraggerIndex) {
       const teardown = draggerEffect({
         orientation: impactVContainer!.getOrientation(),
-        el: (candidateVDragger as DraggerManagerImpl).el!,
+        el: (candidateVDragger as DraggerManagerImpl).getElement()!,
         shouldMove: true,
         placedPosition: measure[1],
         downstream: false,
@@ -128,7 +128,7 @@ const handleReorderOnHomeContainer = (
       if (index === -1) {
         const teardown = draggerEffect({
           orientation: impactVContainer!.getOrientation(),
-          el: (dragger as DraggerManagerImpl).el!,
+          el: (dragger as DraggerManagerImpl).getElement()!,
           shouldMove: true,
           placedPosition: measure[1],
           downstream: false,
@@ -158,7 +158,7 @@ const handleReorderOnHomeContainer = (
     if ((candidateVDraggerIndex as number) < liftUpVDraggerIndex) {
       const teardown = draggerEffect({
         orientation: impactVContainer!.getOrientation(),
-        el: (candidateVDragger as DraggerManagerImpl).el!,
+        el: (candidateVDragger as DraggerManagerImpl).getElement()!,
         shouldMove: true,
         placedPosition: measure[0],
         downstream: true,
@@ -201,7 +201,7 @@ const handleReorderOnHomeContainer = (
       if (index === -1) {
         const teardown = draggerEffect({
           orientation: impactVContainer!.getOrientation(),
-          el: (dragger as DraggerManagerImpl).el!,
+          el: (dragger as DraggerManagerImpl).getElement()!,
           shouldMove: true,
           placedPosition: measure[0],
           downstream: true,

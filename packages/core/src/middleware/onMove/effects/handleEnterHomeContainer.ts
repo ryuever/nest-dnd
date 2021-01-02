@@ -39,7 +39,7 @@ const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
 
   if (typeof containerEffect === 'function') {
     // const teardown = containerEffect({
-    //   el: (impactVContainer as ContainerManagerImpl).el,
+    //   el: (impactVContainer as ContainerManagerImpl).getElement(),
     // });
     // effectsManager!.impactContainerEffects.push({
     //   teardown,
@@ -105,7 +105,7 @@ const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
 
       const teardown = draggerEffect({
         orientation: impactVContainer!.getOrientation(),
-        el: vDragger.el!,
+        el: vDragger.getElement()!,
         shouldMove: !isHighlight || !positionIndex,
         downstream: !isHighlight || !positionIndex,
         placedPosition: (isHighlight ? impactPosition : measure[0]) as Position,

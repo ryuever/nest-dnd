@@ -44,9 +44,9 @@ const handleImpactDraggerEffect = (args: any, ctx: object, actions: Action) => {
 
       const teardown = impactDraggerEffect({
         orientation: impactVContainer!.getOrientation(),
-        dragger: liftUpVDragger.el!,
-        container: impactVContainer.el!,
-        candidateDragger: (candidateVDragger as DraggerManagerImpl).el!,
+        dragger: liftUpVDragger.getElement()!,
+        container: impactVContainer.getElement()!,
+        candidateDragger: (candidateVDragger as DraggerManagerImpl).getElement()!,
         shouldMove: !positionIndex,
         downstream: !positionIndex,
         placedPosition: impactPosition as any,
@@ -62,9 +62,9 @@ const handleImpactDraggerEffect = (args: any, ctx: object, actions: Action) => {
     }
 
     context.output = {
-      dragger: liftUpVDragger.el!,
-      candidateDragger: (candidateVDragger as DraggerManagerImpl).el!,
-      container: impactVContainer.el!,
+      dragger: liftUpVDragger.getElement()!,
+      candidateDragger: (candidateVDragger as DraggerManagerImpl).getElement()!,
+      container: impactVContainer.getElement()!,
       placedPosition: impactPosition as any,
     };
   }

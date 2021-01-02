@@ -7,7 +7,6 @@ class DraggerManagerImpl {
   private _id: string;
   public container: ContainerManagerImpl;
   private _dnd: NestDND;
-  public el: HTMLElement | undefined;
   private _el: HTMLElement | undefined;
   public dimension: DraggerDimension;
   public _teardown: null | Function;
@@ -17,7 +16,6 @@ class DraggerManagerImpl {
     this.container = container;
     this._dnd = dnd;
     this._el = el;
-    this.el = el;
     this._id = draggableId;
     this.dimension = {} as DraggerDimension;
     this._teardown = null;
@@ -26,7 +24,6 @@ class DraggerManagerImpl {
   }
 
   setRef(el: HTMLElement) {
-    this.el = el;
     this._el = el;
     setDraggerAttributes(this.container, this);
   }

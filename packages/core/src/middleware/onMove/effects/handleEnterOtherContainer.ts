@@ -42,7 +42,7 @@ const handleEnterOtherContainer = (args: any, ctx: object, actions: Action) => {
 
   if (typeof containerEffect === 'function') {
     // const teardown = containerEffect({
-    //   el: impactVContainer!.el,
+    //   el: impactVContainer!.getElement(),
     // });
     // effectsManager!.impactContainerEffects.push({
     //   teardown,
@@ -77,7 +77,7 @@ const handleEnterOtherContainer = (args: any, ctx: object, actions: Action) => {
         placedPosition: (isHighlight ? impactPosition : measure[0]) as any,
         shouldMove: falsy,
         downstream: falsy,
-        el: vDragger.el!,
+        el: vDragger.getElement()!,
         dimension: vDragger.dimension.rect,
         isHighlight,
       });

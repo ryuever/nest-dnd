@@ -6,7 +6,7 @@ import ContainerManagerImpl from '../../ContainerManagerImpl';
 import DraggerManagerImpl from '../../DraggerManagerImpl';
 
 const getDimension = (v: ContainerManagerImpl | DraggerManagerImpl) => {
-  const { el } = v;
+  const el = v.getElement();
   const rect = el!.getBoundingClientRect();
   return rect;
 };
@@ -38,8 +38,8 @@ export default (ctx: object, actions: Action) => {
     const rect = getDimension(container);
     container.dimension = {
       rect,
-      subject: getSubject(container.el!),
-      within: withinElement(container.el!),
+      subject: getSubject(container.getElement()!),
+      within: withinElement(container.getElement()!),
     };
   });
 

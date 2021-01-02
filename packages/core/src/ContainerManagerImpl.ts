@@ -14,15 +14,11 @@ import { setContainerAttributes } from './commons/setAttributes';
 class ContainerManagerImpl {
   public children: SortedItems<DraggerManagerImpl>;
   private _id: string;
-
   private dnd: NestDND;
   private dndConfig: NestDNDConfig;
   private _el: HTMLElement | undefined;
-
   private _config: ContainerConfig;
 
-  // TODO: remove
-  public el: HTMLElement | undefined;
   public containerConfig: ContainerConfig;
   private _parentContainer: undefined | ContainerManagerImpl | null;
 
@@ -34,7 +30,6 @@ class ContainerManagerImpl {
     this.dnd = dnd;
     this.dndConfig = dndConfig;
     this._el = el;
-    this.el = el;
     this._config = config;
 
     this._id = droppableId;
@@ -54,7 +49,6 @@ class ContainerManagerImpl {
 
   setRef(el: HTMLElement) {
     this._el = el;
-    this.el = el;
     setContainerAttributes(this, this._config);
   }
 

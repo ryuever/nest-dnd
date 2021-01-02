@@ -50,7 +50,7 @@ export const findClosestContainer = (
   for (let i = 0; i < len; i++) {
     const key = containerKeys[i];
     const container = containers[key];
-    if (container.el === directParent) return container;
+    if (container.getElement() === directParent) return container;
   }
 
   return -1;
@@ -79,7 +79,8 @@ export const findClosestDropTargetFromEvent = (
     if (node.matches(dndConfig.draggerSelector as string)) return container;
     // current node will be resolved if it matches selector...
     // So we should use its parentNode for next processing..
-    node = (container as ContainerManagerImpl).el!.parentNode as HTMLElement;
+    node = (container as ContainerManagerImpl).getElement()!
+      .parentNode as HTMLElement;
   }
 
   return -1;

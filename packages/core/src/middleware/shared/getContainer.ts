@@ -8,7 +8,7 @@ const shouldAcceptDragger = (
   dragger: Dragger
 ) => {
   const { shouldAcceptDragger } = containerConfig;
-  const { el } = dragger;
+  const el = dragger.getElement();
   if (typeof shouldAcceptDragger === 'function') {
     return shouldAcceptDragger(el!);
   }
