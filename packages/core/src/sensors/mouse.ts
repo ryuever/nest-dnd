@@ -9,8 +9,8 @@ import {
   MoveHandlerResult,
   DropResult,
 } from '../types';
-import Dragger from '../Dragger';
-import Container from '../Container';
+import DraggerManagerImpl from '../DraggerManagerImpl';
+import ContainerManagerImpl from '../ContainerManagerImpl';
 import Sabar from 'sabar';
 import DndEffects from '../middleware/onMove/effects/DndEffects';
 
@@ -19,7 +19,7 @@ class Mouse {
   private getClone: GetClone;
   private onStartHandler: Sabar;
   private onMoveHandler: Sabar;
-  private getDragger: (el: HTMLElement) => Dragger;
+  private getDragger: (el: HTMLElement) => DraggerManagerImpl;
   private dndEffects: DndEffects;
   private updateImpact: (impact: Impact) => void;
   private dndConfig: NestDNDConfig;
@@ -38,7 +38,7 @@ class Mouse {
     getClone: GetClone;
     onStartHandler: Sabar;
     onMoveHandler: Sabar;
-    getDragger: (el: HTMLElement) => Dragger;
+    getDragger: (el: HTMLElement) => DraggerManagerImpl;
     dndEffects: DndEffects;
     updateImpact: (impact: Impact) => void;
     dndConfig: NestDNDConfig;
@@ -59,9 +59,6 @@ class Mouse {
       fn: event => {
         const el = findClosestDraggerElementFromEvent(event);
         if (el === -1) return;
-        // const { target } = event;
-        // if (!hasDraggerHandlerMatched(target as HTMLElement, this.configs))
-        //   return;
         // https://stackoverflow.com/a/19164149/2006805 In order to prevent text
         // selection when moving cursor
         event.preventDefault();
@@ -90,7 +87,7 @@ class Mouse {
                 const impactPoint = [event.clientX, event.clientY];
                 event.preventDefault();
                 event.stopPropagation();
-                const isHomeContainer = (vContainer: Container) => {
+                const isHomeContainer = (vContainer: ContainerManagerImpl) => {
                   return vContainer
                     ? vContainer.id === dragger.container.id
                     : false;

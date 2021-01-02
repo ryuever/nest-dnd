@@ -1,10 +1,10 @@
 import {
-  ContainerManagerImplProps,
   NestDNDConfig,
   ContainerConfig,
+  ContainerDimension,
+  ContainerManagerImplProps,
 } from './types';
 import DraggerManagerImpl from './DraggerManagerImpl';
-// import { containerKeyExtractor } from './key';
 import { orientationToAxis, axisMeasure } from './commons/utils';
 import NestDND from './NestDND';
 import SortedItems from './structure/SortedItems';
@@ -24,8 +24,11 @@ class ContainerManagerImpl {
   // TODO: remove
   public el: HTMLElement | undefined;
   public containerConfig: ContainerConfig;
-  public _parentContainer: undefined | ContainerManagerImpl;
+  private _parentContainer: undefined | ContainerManagerImpl | null;
+
   public id: string;
+
+  public dimension: ContainerDimension;
 
   constructor(props: ContainerManagerImplProps) {
     const { dnd, dndConfig, el, config, droppableId, parentContainer } = props;
@@ -37,7 +40,6 @@ class ContainerManagerImpl {
     this._config = config;
 
     this._id = droppableId;
-    // this._id = containerKeyExtractor();
 
     this.children = new SortedItems<DraggerManagerImpl>({
       sorter: this.sorter.bind(this),
@@ -51,6 +53,8 @@ class ContainerManagerImpl {
 
     this.decorateDraggerEffect();
     this._parentContainer = parentContainer;
+
+    this.dimension = {} as any;
   }
 
   setRef(el: HTMLElement) {

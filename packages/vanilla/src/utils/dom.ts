@@ -1,9 +1,39 @@
-import { intersect, within } from './collision';
-import { Point } from './types';
+import { Point, intersect, within } from '@nest-dnd/core';
 
 // https://stackoverflow.com/questions/384286/how-do-you-check-if-a-javascript-object-is-a-dom-object
 export const isElement = (el: any): boolean =>
   el instanceof Element || el instanceof HTMLDocument;
+
+export const matchesDragger = (el: any, configs: any) => {
+  if (!isElement(el)) return -1;
+
+  const len = configs.length;
+  for (let i = 0; i < len; i++) {
+    const config = configs[i];
+    const { draggerSelector } = config;
+
+    if (el.matches(draggerSelector)) {
+      return config;
+    }
+  }
+
+  return -1;
+};
+
+export const matchesContainer = (el: any, configs: any) => {
+  if (!isElement(el)) return -1;
+
+  const len = configs.length;
+  for (let i = 0; i < len; i++) {
+    const config = configs[i];
+    const { containerSelector } = config;
+    if (el.matches(containerSelector)) {
+      return config;
+    }
+  }
+
+  return -1;
+};
 
 export const getViewport = () => {
   const { innerHeight, innerWidth } = window;

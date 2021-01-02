@@ -1,7 +1,7 @@
 import { orientationToMeasure } from '../../../commons/utils';
 import { Action } from 'sabar';
 import { OnMoveHandleContext, OnMoveArgs, Impact } from '../../../types';
-import Container from '../../../Container';
+import ContainerManagerImpl from '../../../ContainerManagerImpl';
 
 const handleEnterOtherContainer = (args: any, ctx: object, actions: Action) => {
   const { liftUpVDragger } = args as OnMoveArgs;
@@ -36,7 +36,7 @@ const handleEnterOtherContainer = (args: any, ctx: object, actions: Action) => {
   const {
     containerConfig: { containerEffect, draggerEffect, orientation },
     children,
-  } = impactVContainer as Container;
+  } = impactVContainer as ContainerManagerImpl;
 
   const measure = orientationToMeasure(orientation);
 
@@ -46,7 +46,7 @@ const handleEnterOtherContainer = (args: any, ctx: object, actions: Action) => {
     // });
     // effectsManager!.impactContainerEffects.push({
     //   teardown,
-    //   vContainer: impactVContainer as Container,
+    //   vContainer: impactVContainer as ContainerManagerImpl,
     // });
   }
 
@@ -59,7 +59,7 @@ const handleEnterOtherContainer = (args: any, ctx: object, actions: Action) => {
 
   const impact = {
     index: initialValue,
-    impactVContainer: impactVContainer as Container,
+    impactVContainer: impactVContainer as ContainerManagerImpl,
     impactPosition,
     dropResult,
   };
@@ -77,7 +77,7 @@ const handleEnterOtherContainer = (args: any, ctx: object, actions: Action) => {
         placedPosition: (isHighlight ? impactPosition : measure[0]) as any,
         shouldMove: falsy,
         downstream: falsy,
-        el: vDragger.el,
+        el: vDragger.el!,
         dimension: vDragger.dimension.rect,
         isHighlight,
       });

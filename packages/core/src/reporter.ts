@@ -1,4 +1,4 @@
-import Container from './Container';
+import ContainerManagerImpl from './ContainerManagerImpl';
 import { LoggerComponent } from './types';
 
 const capitalize = (s: string) => {
@@ -34,11 +34,11 @@ function reporter() {
     addDraggerNode: manipulateNode('add', 'dragger'),
     removeContainerNode: manipulateNode('remove', 'container'),
 
-    logEnterContainer: (container: Container) => {
+    logEnterContainer: (container: ContainerManagerImpl) => {
       console.log(`On enter: %c${container.id}`, 'color: #bada55');
     },
 
-    logLeaveContainer: (container: Container) => {
+    logLeaveContainer: (container: ContainerManagerImpl) => {
       console.log(`On leave: %c${container.id}`, 'color: #bada55');
     },
   };
@@ -71,11 +71,11 @@ function reporter() {
 //   this.addDraggerNode = manipulateNode('add', 'dragger');
 //   this.removeContainerNode = manipulateNode('remove', 'container');
 
-//   this.logEnterContainer = (container: Container) => {
+//   this.logEnterContainer = (container: ContainerManagerImpl) => {
 //     console.log(`On enter: %c${container.id}`, 'color: #bada55');
 //   };
 
-//   this.logLeaveContainer = (container: Container) => {
+//   this.logLeaveContainer = (container: ContainerManagerImpl) => {
 //     console.log(`On leave: %c${container.id}`, 'color: #bada55');
 //   };
 // }

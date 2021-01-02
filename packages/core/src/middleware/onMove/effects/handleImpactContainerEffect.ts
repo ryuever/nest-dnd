@@ -40,7 +40,7 @@ const handleImpactContainerEffect = (
 
       if (index === -1) {
         const teardown = impactContainerEffect({
-          container: impactVContainer.el,
+          container: impactVContainer.el!,
           isHighlight: true,
         });
 

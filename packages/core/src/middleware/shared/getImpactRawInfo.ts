@@ -4,8 +4,8 @@ import {
   closestExclusiveContainerNodeFromElement,
 } from '../../setAttributes';
 import { within, pointInRectWithOrientation } from '../../collision';
-import Container from '../../Container';
-import Dragger from '../../Dragger';
+import ContainerManagerImpl from '../../ContainerManagerImpl';
+import DraggerManagerImpl from '../../DraggerManagerImpl';
 import {
   Point,
   DraggersMap,
@@ -17,15 +17,19 @@ import {
 } from '../../types';
 import { Action } from 'sabar';
 
-const shouldAccept = (vContainer: Container, vDragger: Dragger) => {
+const shouldAccept = (
+  vContainer: ContainerManagerImpl,
+  vDragger: DraggerManagerImpl
+) => {
   const { containerConfig } = vContainer;
   const { el } = vDragger;
-  const { draggerSelector, shouldAcceptDragger } = containerConfig;
+  const { shouldAcceptDragger } = containerConfig;
   if (typeof shouldAcceptDragger === 'function') {
-    return shouldAcceptDragger(el);
+    return shouldAcceptDragger(el!);
   }
+  return false;
 
-  return el.matches(draggerSelector);
+  // return el.matches(draggerSelector);
 };
 
 const DEBUG = false;
@@ -42,7 +46,7 @@ const getRawInfo = ({
   candidateContainerElement: HTMLElement;
   vDraggers: DraggersMap;
   vContainers: ContainersMap;
-  liftUpVDragger: Dragger;
+  liftUpVDragger: DraggerManagerImpl;
   isNested: boolean;
 }): RawInfo | null => {
   const vContainer = getVContainer(candidateContainerElement, vContainers);
@@ -51,7 +55,7 @@ const getRawInfo = ({
 
   // If dragger move on to itself or its children's node container.
   // then return...
-  if (liftUpVDragger.el.contains(vContainer.el)) return null;
+  if (liftUpVDragger.el!.contains(vContainer.el!)) return null;
 
   const {
     containerConfig: { orientation },
@@ -104,7 +108,7 @@ const getRawInfo = ({
     }
   }
 
-  const containerElement = vContainer.el;
+  const containerElement = vContainer.el!;
   const nextCandidateContainerElement = closestExclusiveContainerNodeFromElement(
     containerElement
   );
