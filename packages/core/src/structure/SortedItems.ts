@@ -18,7 +18,7 @@ class SortedItems<T> {
   }
 
   findIndex(item: T) {
-    const { id } = item as any;
+    const id = (item as any).getId();
     return this.items.findIndex(item => (item as any).getId() === id);
   }
 
