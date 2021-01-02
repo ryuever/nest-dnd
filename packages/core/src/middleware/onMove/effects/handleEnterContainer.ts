@@ -1,6 +1,6 @@
 import EffectsManager from './EffectsManager';
 import report from '../../../reporter';
-import Container from '../../../Container';
+import ContainerManagerImpl from '../../../ContainerManagerImpl';
 import {
   Impact,
   OnMoveHandleContext,
@@ -29,7 +29,7 @@ const handleEnterContainer = (args: any, ctx: object, actions: Action) => {
     if (!effectsManager) {
       effectsManager = new EffectsManager({
         dragger: liftUpVDragger,
-        impactContainer: impactVContainer as Container,
+        impactContainer: impactVContainer as ContainerManagerImpl,
       });
 
       dndEffects.add(effectsManager);

@@ -2,12 +2,12 @@
 import { isElementVisibleInViewport, withinElement } from '../../dom';
 import { Action } from 'sabar';
 import { OnStartHandlerContext } from '../../types';
-import Container from '../../Container';
-import Dragger from '../../Dragger';
+import ContainerManagerImpl from '../../ContainerManagerImpl';
+import DraggerManagerImpl from '../../DraggerManagerImpl';
 
-const getDimension = (v: Container | Dragger) => {
+const getDimension = (v: ContainerManagerImpl | DraggerManagerImpl) => {
   const { el } = v;
-  const rect = el.getBoundingClientRect();
+  const rect = el!.getBoundingClientRect();
   return rect;
 };
 
@@ -38,8 +38,8 @@ export default (ctx: object, actions: Action) => {
     const rect = getDimension(container);
     container.dimension = {
       rect,
-      subject: getSubject(container.el),
-      within: withinElement(container.el),
+      subject: getSubject(container.el!),
+      within: withinElement(container.el!),
     };
   });
 

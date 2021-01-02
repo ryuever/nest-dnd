@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useContext, useEffect } from 'react';
 import invariant from 'invariant';
 import cloneWithRef from './cloneWithRef';
 import context from './context';
-import { ContainerManagerImpl, DraggerManagerImpl } from 'packages/core/src';
+import { ContainerManagerImpl, DraggerManagerImpl } from '@nest-dnd/core';
 
 // https://github.com/react-dnd/react-dnd/blob/main/packages/react-dnd/src/common/wrapConnectorHooks.ts#L21
 export default (props: any) => {
@@ -18,6 +18,7 @@ export default (props: any) => {
     transitionMode = 'fluid',
     droppableId,
     draggable,
+    groupId,
     ...restProps
   } = props;
 
@@ -27,7 +28,6 @@ export default (props: any) => {
 
   if (!isMountedRef.current) {
     const { container: nextContainer, teardown } = provider!.addContainer({
-      // el,
       droppableId,
       config: {
         orientation,

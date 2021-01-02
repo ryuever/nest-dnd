@@ -1,0 +1,35 @@
+{
+  "version": "0.1.4",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "tsdx test",
+    "lint": "tsdx lint"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "name": "@nest-dnd/vanilla",
+  "author": "youchao liu",
+  "module": "dist/vanilla.esm.js",
+  "devDependencies": {
+    "tslib": "^2.0.0"
+  },
+  "dependencies": {
+    "@nest-dnd/core": "^0.1.4",
+    "invariant": "^2.2.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

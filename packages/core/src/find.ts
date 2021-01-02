@@ -1,6 +1,6 @@
 import { Containers, Predicator } from './types';
 import closest from './closest';
-import Container from './Container';
+import ContainerManagerImpl from './ContainerManagerImpl';
 
 export function findIndex(list: any, predicate: Predicator) {
   if (list.findIndex) {
@@ -36,7 +36,7 @@ export const findClosestContainer = (
   containers: Containers,
   el: HTMLElement | null,
   strictMode?: boolean
-): -1 | Container => {
+): -1 | ContainerManagerImpl => {
   if (!el) return -1;
   const node = strictMode ? el.parentNode : el;
 
@@ -75,11 +75,11 @@ export const findClosestDropTargetFromEvent = (
     node !== document.body &&
     node
   ) {
-    const { dndConfig } = container as Container;
+    const dndConfig = (container as ContainerManagerImpl).getDNDConfig();
     if (node.matches(dndConfig.draggerSelector as string)) return container;
     // current node will be resolved if it matches selector...
     // So we should use its parentNode for next processing..
-    node = (container as Container).el.parentNode as HTMLElement;
+    node = (container as ContainerManagerImpl).el!.parentNode as HTMLElement;
   }
 
   return -1;

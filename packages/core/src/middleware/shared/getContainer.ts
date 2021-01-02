@@ -1,25 +1,29 @@
-import Dragger from '../../Dragger';
+import Dragger from '../../DraggerManagerImpl';
 import { Action } from 'sabar';
-import Container from '../../Container';
-import { Config, OnStartHandlerContext } from '../../types';
+import ContainerManagerImpl from '../../ContainerManagerImpl';
+import { OnStartHandlerContext, ContainerConfig } from '../../types';
 
-const shouldAcceptDragger = (containerConfig: Config, dragger: Dragger) => {
-  const { draggerSelector, shouldAcceptDragger } = containerConfig;
+const shouldAcceptDragger = (
+  containerConfig: ContainerConfig,
+  dragger: Dragger
+) => {
+  const { shouldAcceptDragger } = containerConfig;
   const { el } = dragger;
   if (typeof shouldAcceptDragger === 'function') {
-    return shouldAcceptDragger(el);
+    return shouldAcceptDragger(el!);
   }
+  return false;
 
-  return el.matches(draggerSelector!);
+  // return el.matches(draggerSelector!);
 };
 
-const pickClosestContainer = (pendingContainers: Container[]) => {
+const pickClosestContainer = (pendingContainers: ContainerManagerImpl[]) => {
   const len = pendingContainers.length;
   if (len <= 1) return pendingContainers[0];
   const isVerified = Object.create(null) as {
     [key: string]: {
       used: boolean;
-      container: Container;
+      container: ContainerManagerImpl;
     };
   };
 
@@ -35,14 +39,14 @@ const pickClosestContainer = (pendingContainers: Container[]) => {
       container,
     };
 
-    let { parentContainer } = container;
+    let parentContainer = container.getParentContainer();
 
     while (parentContainer) {
       const parentContainerId = parentContainer.id;
       if (typeof isVerified[parentContainerId] !== 'undefined') {
         parentContainer = null;
       } else {
-        parentContainer = parentContainer.parentContainer;
+        parentContainer = parentContainer.getParentContainer();
       }
       isVerified[parentContainerId].used = false;
     }

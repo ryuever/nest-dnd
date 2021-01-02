@@ -6,8 +6,8 @@ import {
   OnMoveOperation,
   OnMoveArgs,
 } from '../../../types';
-import Container from '../../../Container';
-import Dragger from '../../../Dragger';
+import ContainerManagerImpl from '../../../ContainerManagerImpl';
+import DraggerManagerImpl from '../../../DraggerManagerImpl';
 
 const handleReorderOnHomeContainer = (
   args: any,
@@ -35,7 +35,7 @@ const handleReorderOnHomeContainer = (
   } = context;
   const {
     containerConfig: { orientation, draggerEffect },
-  } = impactVContainer as Container;
+  } = impactVContainer as ContainerManagerImpl;
   const currentIndex = context.impact.index || 0;
 
   const measure = orientationToMeasure(orientation);
@@ -82,7 +82,7 @@ const handleReorderOnHomeContainer = (
 
     const index = effectsManager!.downstreamDraggersEffects.findIndex(
       ({ vDragger }) => {
-        return vDragger.id === (candidateVDragger as Dragger).id;
+        return vDragger.id === (candidateVDragger as DraggerManagerImpl).id;
       }
     );
 
@@ -108,16 +108,16 @@ const handleReorderOnHomeContainer = (
 
     const teardown = draggerEffect({
       orientation: impactVContainer!.getOrientation(),
-      el: (candidateVDragger as Dragger).el,
+      el: (candidateVDragger as DraggerManagerImpl).el!,
       shouldMove: true,
       placedPosition: measure[0],
       downstream: true,
-      dimension: (candidateVDragger as Dragger).dimension.rect,
+      dimension: (candidateVDragger as DraggerManagerImpl).dimension.rect,
       isHighlight: true,
     });
 
     effectsManager!.downstreamDraggersEffects.push({
-      vDragger: candidateVDragger as Dragger,
+      vDragger: candidateVDragger as DraggerManagerImpl,
       teardown,
     });
   }

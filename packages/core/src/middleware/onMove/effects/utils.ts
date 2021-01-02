@@ -1,17 +1,17 @@
-import Container from '../../../Container';
-import Dragger from '../../../Dragger';
+import ContainerManagerImpl from '../../../ContainerManagerImpl';
+import DraggerManagerImpl from '../../../DraggerManagerImpl';
 import { Position } from '../../../types';
 
 export const generateDraggerEffectKey = (
-  vContainer: Container,
-  impactVDragger: Dragger,
+  vContainer: ContainerManagerImpl,
+  impactVDragger: DraggerManagerImpl,
   placedPosition: Position
 ) => {
   return `${vContainer.id}_${impactVDragger.id}_${placedPosition}`;
 };
 
 export const generateContainerEffectKey = (
-  vContainer: Container,
+  vContainer: ContainerManagerImpl,
   status: string
 ) => {
   return `${vContainer.id}_${status}`;

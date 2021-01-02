@@ -1,6 +1,6 @@
 import { isFunction } from '../../../commons/utils';
-import Dragger from '../../../Dragger';
-import Container from '../../../Container';
+import DraggerManagerImpl from '../../../DraggerManagerImpl';
+import ContainerManagerImpl from '../../../ContainerManagerImpl';
 import {
   ImpactDraggerEffect,
   DraggerEffect,
@@ -8,8 +8,8 @@ import {
 } from '../../../types';
 
 export default class EffectsManager {
-  private dragger: Dragger;
-  private impactContainer: Container;
+  private dragger: DraggerManagerImpl;
+  private impactContainer: ContainerManagerImpl;
   public id: string;
   public impactDraggerEffects: ImpactDraggerEffect[];
   public impactContainerEffects: ContainerEffect[];
@@ -20,8 +20,8 @@ export default class EffectsManager {
     dragger,
     impactContainer,
   }: {
-    dragger: Dragger;
-    impactContainer: Container;
+    dragger: DraggerManagerImpl;
+    impactContainer: ContainerManagerImpl;
   }) {
     this.dragger = dragger;
     this.impactContainer = impactContainer;

@@ -1,8 +1,7 @@
 import { SyncHook } from 'tapable';
-import Container from '../Container';
-import { default as IDragger } from '../Dragger';
-import DndEffects from '../middleware/onMove/effects/DndEffects';
-import EffectsManager from '../middleware/onMove/effects/EffectsManager';
+import Container from '../ContainerManagerImpl';
+import DraggerManagerImpl from '../DraggerManagerImpl';
+
 import { DropResult } from './nestDND';
 
 export interface RectObject {
@@ -32,65 +31,54 @@ export enum Mode {
   Nested = 'nested',
 }
 
-export type Dragger = IDragger;
+export type Dragger = DraggerManagerImpl;
 
-export interface Config {
-  orientation?: Orientation;
-  draggerHandlerSelector?: string;
-  containerSelector?: string;
-  draggerSelector?: string;
-  shouldAcceptDragger?: { (e: HTMLElement): boolean };
-  containerEffect?: { ({ el }: { el: HTMLElement }): void | Function };
-  draggerEffect?: DraggerEffectHandler;
-  impactDraggerEffect?: ImpactDraggerEffectHandler;
+// export interface Config {
+//   orientation?: Orientation;
+//   draggerHandlerSelector?: string;
+//   containerSelector?: string;
+//   draggerSelector?: string;
+//   shouldAcceptDragger?: { (e: HTMLElement): boolean };
+//   containerEffect?: { ({ el }: { el: HTMLElement }): void | Function };
+//   draggerEffect?: DraggerEffectHandler;
+//   impactDraggerEffect?: ImpactDraggerEffectHandler;
 
-  /**
-   * It's called when enter a container, handler should return with a function
-   * to make effect cleanup...
-   */
-  impactContainerEffect?: ImpactContainerEffectHandler;
-  [key: string]: any;
-}
+//   /**
+//    * It's called when enter a container, handler should return with a function
+//    * to make effect cleanup...
+//    */
+//   impactContainerEffect?: ImpactContainerEffectHandler;
+//   [key: string]: any;
+// }
 
-export type DNDConfig = Config & {
-  mode?: Mode;
-  collisionPadding?: number;
-  withPlaceholder: boolean;
-  onDrop: { (output: MoveHandlerOutput): void };
-};
+// export type DNDConfig = Config & {
+//   mode?: Mode;
+//   collisionPadding?: number;
+//   withPlaceholder: boolean;
+//   onDrop: { (output: MoveHandlerOutput): void };
+// };
 
 /**
  * orientation should be required.
  */
-export type ResultDNDConfig = DNDConfig & {
-  mode: Mode;
-  collisionPadding: number;
-};
+// export type ResultDNDConfig = DNDConfig & {
+//   mode: Mode;
+//   collisionPadding: number;
+// };
 
-export type DefaultConfig = {
-  orientation: Orientation;
-};
-export type ResultConfig = Config &
-  DefaultConfig & {
-    containerSelector: string;
-    draggerSelector: string;
-  };
+// export type DefaultConfig = {
+//   orientation: Orientation;
+// };
+// export type ResultConfig = Config &
+//   DefaultConfig & {
+//     containerSelector: string;
+//     draggerSelector: string;
+//   };
 
-export type GlobalConfig = DNDConfig & {
-  rootElement: string;
-  configs: Config[];
-};
-
-export interface Containers {
-  [key: string]: Container;
-}
-export interface ContainerDimension {
-  rect: RectObject;
-  subject: {
-    isVisible: boolean;
-  };
-  within: (point: Point) => boolean;
-}
+// export type GlobalConfig = DNDConfig & {
+//   rootElement: string;
+//   configs: Config[];
+// };
 
 export interface DraggerDimension {
   rect: RectObject;
@@ -202,72 +190,6 @@ export interface MoveHandlerResult {
   output: MoveHandlerOutput;
 }
 
-export interface Extra {
-  clone?: HTMLElement;
-}
-
-export interface VContainer {
-  [key: string]: Container;
-}
-
-export interface VDragger {
-  [key: string]: Dragger;
-}
-
-export enum OnMoveOperation {
-  OnStart = 'onStart',
-  OnEnter = 'onEnter',
-  OnLeave = 'onLeave',
-  ReOrder = 'reOrder',
-}
-
-export interface OnMoveAction {
-  operation: OnMoveOperation;
-  isHomeContainerFocused: boolean;
-  effectsManager: null | EffectsManager;
-}
-
-export type GetDraggers = () => VDragger;
-export type GetContainers = () => VContainer;
-
-export interface OnStartHandlerContext {
-  getContainers: GetContainers;
-  getDraggers: GetDraggers;
-  extra: Extra;
-  dndConfig: GlobalConfig;
-  targetContainer: Container;
-  impact: {
-    impactContainer: Container;
-  };
-  impactRawInfo: RawInfo;
-}
-
-export interface OnMoveHandleContext {
-  getContainers: GetContainers;
-  getDraggers: GetDraggers;
-  dndConfig: GlobalConfig;
-  action: OnMoveAction;
-  impactRawInfo: RawInfo;
-  dndEffects: DndEffects;
-  impact: Impact;
-  output: {
-    dragger: HTMLElement;
-    candidateDragger: HTMLElement;
-    container: HTMLElement;
-    placedPosition: Position;
-  };
-}
-
-export interface OnMoveArgs {
-  impactPoint: Point;
-  clone: HTMLElement;
-  liftUpVDragger: Dragger;
-  isHomeContainer: (container: Container) => boolean;
-  prevImpact: Impact;
-  liftUpVDraggerIndex: number;
-  lifeUpDragger: Dragger;
-}
-
 export interface RawInfo {
   candidateVDragger: Dragger | null;
   candidateVDraggerIndex: number | null;
@@ -319,15 +241,15 @@ export interface ImpactDraggerEffectHandler {
   }): Function | undefined;
 }
 
-export interface ImpactContainerEffectHandler {
-  ({
-    container,
-    isHighlight,
-  }: {
-    container: HTMLElement;
-    isHighlight: boolean;
-  }): Function | undefined;
-}
+// export interface ImpactContainerEffectHandler {
+//   ({
+//     container,
+//     isHighlight,
+//   }: {
+//     container: HTMLElement;
+//     isHighlight: boolean;
+//   }): Function | undefined;
+// }
 
 // TODO pending ts issue: cause `error  Parsing error: Cannot read property 'map' of undefined`
 
