@@ -82,7 +82,9 @@ const handleReorderOnHomeContainer = (
 
     const index = effectsManager!.downstreamDraggersEffects.findIndex(
       ({ vDragger }) => {
-        return vDragger.id === (candidateVDragger as DraggerManagerImpl).id;
+        return (
+          vDragger.getId() === (candidateVDragger as DraggerManagerImpl).getId()
+        );
       }
     );
 

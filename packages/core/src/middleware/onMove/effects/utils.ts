@@ -7,12 +7,12 @@ export const generateDraggerEffectKey = (
   impactVDragger: DraggerManagerImpl,
   placedPosition: Position
 ) => {
-  return `${vContainer.id}_${impactVDragger.id}_${placedPosition}`;
+  return `${vContainer.getId()}_${impactVDragger.getId()}_${placedPosition}`;
 };
 
 export const generateContainerEffectKey = (
   vContainer: ContainerManagerImpl,
   status: string
 ) => {
-  return `${vContainer.id}_${status}`;
+  return `${vContainer.getId()}_${status}`;
 };

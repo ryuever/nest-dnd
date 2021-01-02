@@ -17,9 +17,9 @@ const handleReorder = (args: any, ctx: object, actions: Action) => {
   if (
     prevImpactVContainer &&
     currentImpactVContainer &&
-    prevImpactVContainer.id === currentImpactVContainer.id
+    prevImpactVContainer.getId() === currentImpactVContainer.getId()
   ) {
-    const effectsManager = dndEffects.find(currentImpactVContainer.id);
+    const effectsManager = dndEffects.find(currentImpactVContainer.getId());
 
     context.action = {
       operation: OnMoveOperation.ReOrder,

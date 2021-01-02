@@ -83,7 +83,10 @@ const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
           vDragger: DraggerManagerImpl;
           teardown: any;
         }) => {
-          if (vDragger.id !== (candidateVDragger as DraggerManagerImpl).id)
+          if (
+            vDragger.getId() !==
+            (candidateVDragger as DraggerManagerImpl).getId()
+          )
             teardown();
           else remainingEffects.push({ vDragger, teardown });
         }
@@ -126,8 +129,8 @@ const handleEnterHomeContainer = (args: any, ctx: object, actions: Action) => {
 
     effectsManager!.upstreamDraggersEffects.forEach(
       ({ teardown, vDragger }) => {
-        const { id } = vDragger;
-        const index = reserved.findIndex(vDragger => vDragger.id === id);
+        const id = vDragger.getId();
+        const index = reserved.findIndex(vDragger => vDragger.getId() === id);
         if (index !== -1) {
           reservedEffects.push({ teardown, vDragger });
         } else if (teardown) teardown();

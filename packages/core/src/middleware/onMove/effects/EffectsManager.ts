@@ -25,7 +25,7 @@ export default class EffectsManager {
   }) {
     this.dragger = dragger;
     this.impactContainer = impactContainer;
-    this.id = impactContainer.id;
+    this.id = impactContainer.getId();
 
     this.impactDraggerEffects = [];
     this.impactContainerEffects = [];
@@ -35,7 +35,7 @@ export default class EffectsManager {
 
   isHomeContainerEffects() {
     const { container } = this.dragger;
-    return container.id === this.impactContainer.id;
+    return container.getId() === this.impactContainer.getId();
   }
 
   assertRun(fn: any) {

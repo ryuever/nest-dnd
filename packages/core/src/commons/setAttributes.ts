@@ -1,6 +1,6 @@
-import { ContainerConfig, ContainersMap, Point } from './types';
-import ContainerManagerImpl from './ContainerManagerImpl';
-import DraggerManagerImpl from './DraggerManagerImpl';
+import { ContainerConfig, ContainersMap, Point } from '../types';
+import ContainerManagerImpl from '../ContainerManagerImpl';
+import DraggerManagerImpl from '../DraggerManagerImpl';
 import closest from './closest';
 
 export const draggerSelector = '[data-is-dragger="true"]';

@@ -1,5 +1,5 @@
 import { bindEvents } from '../commons/bindEvents';
-import { findClosestDraggerElementFromEvent } from '../find';
+import { findClosestDraggerElementFromEvent } from '../commons/find';
 import {
   MoveAPI,
   GetClone,
@@ -89,7 +89,7 @@ class Mouse {
                 event.stopPropagation();
                 const isHomeContainer = (vContainer: ContainerManagerImpl) => {
                   return vContainer
-                    ? vContainer.id === dragger.container.id
+                    ? vContainer.getId() === dragger.container.getId()
                     : false;
                 };
 

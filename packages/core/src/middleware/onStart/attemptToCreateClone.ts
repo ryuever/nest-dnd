@@ -2,7 +2,7 @@
  * Clone node should be created if there is no copy when moving
  */
 
-import { setCloneAttributes } from '../../setAttributes';
+import { setCloneAttributes } from '../../commons/setAttributes';
 import DraggerManagerImpl from '../../DraggerManagerImpl';
 import { Action } from 'sabar';
 import { OnStartHandlerContext } from '../../types';

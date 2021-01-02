@@ -29,7 +29,7 @@ const pickClosestContainer = (pendingContainers: ContainerManagerImpl[]) => {
 
   for (let i = 0; i < len; i++) {
     const container = pendingContainers[i];
-    const containerId = container.id;
+    const containerId = container.getId();
     if (typeof isVerified[containerId] !== 'undefined') {
       break;
     }
@@ -42,7 +42,7 @@ const pickClosestContainer = (pendingContainers: ContainerManagerImpl[]) => {
     let parentContainer = container.getParentContainer();
 
     while (parentContainer) {
-      const parentContainerId = parentContainer.id;
+      const parentContainerId = parentContainer.getId();
       if (typeof isVerified[parentContainerId] !== 'undefined') {
         parentContainer = null;
       } else {

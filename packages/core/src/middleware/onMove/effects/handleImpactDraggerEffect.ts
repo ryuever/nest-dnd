@@ -24,7 +24,7 @@ const handleImpactDraggerEffect = (args: any, ctx: object, actions: Action) => {
     containerConfig: { orientation, impactDraggerEffect },
   } = impactVContainer;
 
-  const effectsManager = dndEffects.find(impactVContainer.id);
+  const effectsManager = dndEffects.find(impactVContainer.getId());
 
   const measure = orientationToMeasure(orientation);
   const positionIndex = measure.indexOf(impactPosition as string);

@@ -86,7 +86,10 @@ const handleReorderOnHomeContainer = (
     if ((candidateVDraggerIndex as number) <= liftUpVDraggerIndex) {
       const index = effectsManager!.downstreamDraggersEffects.findIndex(
         ({ vDragger }) => {
-          return vDragger.id === (candidateVDragger as DraggerManagerImpl).id;
+          return (
+            vDragger.getId() ===
+            (candidateVDragger as DraggerManagerImpl).getId()
+          );
         }
       );
       if (index !== -1) {
@@ -119,7 +122,7 @@ const handleReorderOnHomeContainer = (
       const dragger = children?.getItem(i);
       const index = effectsManager!.downstreamDraggersEffects.findIndex(
         ({ vDragger }) => {
-          return vDragger.id === (dragger as DraggerManagerImpl).id;
+          return vDragger.getId() === (dragger as DraggerManagerImpl).getId();
         }
       );
       if (index === -1) {
@@ -171,7 +174,10 @@ const handleReorderOnHomeContainer = (
     if ((candidateVDraggerIndex as number) >= liftUpVDraggerIndex) {
       const index = effectsManager!.upstreamDraggersEffects.findIndex(
         ({ vDragger }) => {
-          return vDragger.id === (candidateVDragger as DraggerManagerImpl).id;
+          return (
+            vDragger.getId() ===
+            (candidateVDragger as DraggerManagerImpl).getId()
+          );
         }
       );
 
@@ -189,7 +195,7 @@ const handleReorderOnHomeContainer = (
       const dragger = children?.getItem(i);
       const index = effectsManager!.downstreamDraggersEffects.findIndex(
         ({ vDragger }) => {
-          return vDragger.id === (dragger as DraggerManagerImpl).id;
+          return vDragger.getId() === (dragger as DraggerManagerImpl).getId();
         }
       );
       if (index === -1) {

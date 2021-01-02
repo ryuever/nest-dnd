@@ -9,7 +9,7 @@ import { orientationToAxis, axisMeasure } from './commons/utils';
 import NestDND from './NestDND';
 import SortedItems from './structure/SortedItems';
 import fluid from './transitionsHandler/fluid';
-import { setContainerAttributes } from './setAttributes';
+import { setContainerAttributes } from './commons/setAttributes';
 
 class ContainerManagerImpl {
   public children: SortedItems<DraggerManagerImpl>;
@@ -25,8 +25,6 @@ class ContainerManagerImpl {
   public el: HTMLElement | undefined;
   public containerConfig: ContainerConfig;
   private _parentContainer: undefined | ContainerManagerImpl | null;
-
-  public id: string;
 
   public dimension: ContainerDimension;
 
@@ -47,9 +45,6 @@ class ContainerManagerImpl {
     this.containerConfig = config || {
       orientation: 'vertical',
     };
-
-    // TODO:
-    this.id = this._id;
 
     this.decorateDraggerEffect();
     this._parentContainer = parentContainer;

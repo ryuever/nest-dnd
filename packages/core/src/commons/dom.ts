@@ -1,5 +1,5 @@
 import { intersect, within } from './collision';
-import { Point } from './types';
+import { Point } from '../types';
 
 // https://stackoverflow.com/questions/384286/how-do-you-check-if-a-javascript-object-is-a-dom-object
 export const isElement = (el: any): boolean =>

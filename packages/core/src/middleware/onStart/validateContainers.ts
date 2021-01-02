@@ -1,4 +1,9 @@
-import { intersect, coincide, contains, overlapOnEdge } from '../../collision';
+import {
+  intersect,
+  coincide,
+  contains,
+  overlapOnEdge,
+} from '../../commons/collision';
 import { Action } from 'sabar';
 import { OnStartHandlerContext } from '../../types';
 
@@ -33,8 +38,8 @@ export default (ctx: object, actions: Action) => {
         console.warn(
           '=======================================\n' +
             'The interaction of containers is forbidden\n' +
-            `  containerA's id: ${containerA.id}\n` +
-            `  containerB's id: ${containerB.id}\n`
+            `  containerA's id: ${containerA.getId()}\n` +
+            `  containerB's id: ${containerB.getId()}\n`
         );
       }
     }

@@ -1,5 +1,5 @@
 import EffectsManager from './EffectsManager';
-import report from '../../../reporter';
+import report from '../../../commons/reporter';
 import ContainerManagerImpl from '../../../ContainerManagerImpl';
 import {
   Impact,
@@ -21,9 +21,9 @@ const handleEnterContainer = (args: any, ctx: object, actions: Action) => {
     (!prevImpactVContainer && currentImpactVContainer) ||
     (prevImpactVContainer &&
       currentImpactVContainer &&
-      prevImpactVContainer.id !== currentImpactVContainer.id)
+      prevImpactVContainer.getId() !== currentImpactVContainer.getId())
   ) {
-    let effectsManager = dndEffects.find(currentImpactVContainer.id);
+    let effectsManager = dndEffects.find(currentImpactVContainer.getId());
     const { impactVContainer } = impactRawInfo;
 
     if (!effectsManager) {

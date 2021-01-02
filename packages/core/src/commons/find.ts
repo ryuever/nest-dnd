@@ -1,6 +1,6 @@
-import { Containers, Predicator } from './types';
+import { Containers, Predicator } from '../types';
 import closest from './closest';
-import ContainerManagerImpl from './ContainerManagerImpl';
+import ContainerManagerImpl from '../ContainerManagerImpl';
 
 export function findIndex(list: any, predicate: Predicator) {
   if (list.findIndex) {

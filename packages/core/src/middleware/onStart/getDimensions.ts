@@ -1,5 +1,5 @@
 // only resolve the style of container or dragger enclosed by container.
-import { isElementVisibleInViewport, withinElement } from '../../dom';
+import { isElementVisibleInViewport, withinElement } from '../../commons/dom';
 import { Action } from 'sabar';
 import { OnStartHandlerContext } from '../../types';
 import ContainerManagerImpl from '../../ContainerManagerImpl';

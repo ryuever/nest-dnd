@@ -3,7 +3,7 @@
 // https://codereview.stackexchange.com/questions/185323/find-the-intersect-area-of-two-overlapping-rectangles
 // https://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
 
-import { RectObject, Point, Position, Triangle } from './types';
+import { RectObject, Point, Position, Triangle } from '../types';
 
 // https://silentmatt.com/rectangle-intersection/
 export const intersect = (a: RectObject, b: RectObject) => {

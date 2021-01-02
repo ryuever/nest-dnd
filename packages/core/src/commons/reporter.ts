@@ -1,5 +1,5 @@
-import ContainerManagerImpl from './ContainerManagerImpl';
-import { LoggerComponent } from './types';
+import ContainerManagerImpl from '../ContainerManagerImpl';
+import { LoggerComponent } from '../types';
 
 const capitalize = (s: string) => {
   if (typeof s !== 'string') return '';
@@ -15,7 +15,7 @@ function reporter() {
 
   return {
     logAddEffect: (component: LoggerComponent) => {
-      const { id } = component;
+      const id = component.getId();
       console.log(
         `Add effect to component %c${id}`,
         'background: #222; color: red'
@@ -23,7 +23,7 @@ function reporter() {
     },
 
     logRemoveEffect: (component: LoggerComponent) => {
-      const { id } = component;
+      const id = component.getId();
       console.log(
         `Remove effect from component %c${id}`,
         'background: #222; color: #bada55'
@@ -35,11 +35,11 @@ function reporter() {
     removeContainerNode: manipulateNode('remove', 'container'),
 
     logEnterContainer: (container: ContainerManagerImpl) => {
-      console.log(`On enter: %c${container.id}`, 'color: #bada55');
+      console.log(`On enter: %c${container.getId()}`, 'color: #bada55');
     },
 
     logLeaveContainer: (container: ContainerManagerImpl) => {
-      console.log(`On leave: %c${container.id}`, 'color: #bada55');
+      console.log(`On leave: %c${container.getId()}`, 'color: #bada55');
     },
   };
 }
@@ -72,11 +72,11 @@ function reporter() {
 //   this.removeContainerNode = manipulateNode('remove', 'container');
 
 //   this.logEnterContainer = (container: ContainerManagerImpl) => {
-//     console.log(`On enter: %c${container.id}`, 'color: #bada55');
+//     console.log(`On enter: %c${container.getId()}`, 'color: #bada55');
 //   };
 
 //   this.logLeaveContainer = (container: ContainerManagerImpl) => {
-//     console.log(`On leave: %c${container.id}`, 'color: #bada55');
+//     console.log(`On leave: %c${container.getId()}`, 'color: #bada55');
 //   };
 // }
 

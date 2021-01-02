@@ -17,7 +17,7 @@ const handleImpactContainerEffect = (
 
   if (operation === 'onLeave') {
     const { impactVContainer } = prevImpact;
-    const effectsManager = dndEffects.find(impactVContainer!.id);
+    const effectsManager = dndEffects.find(impactVContainer!.getId());
     effectsManager.clearImpactContainerEffects();
   }
 

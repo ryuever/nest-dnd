@@ -1,7 +1,7 @@
 import { DraggerManagerImplProps, DraggerDimension, RectObject } from './types';
 import ContainerManagerImpl from './ContainerManagerImpl';
 import NestDND from './NestDND';
-import { setDraggerAttributes } from './setAttributes';
+import { setDraggerAttributes } from './commons/setAttributes';
 
 class DraggerManagerImpl {
   private _id: string;
@@ -12,8 +12,6 @@ class DraggerManagerImpl {
   public dimension: DraggerDimension;
   public _teardown: null | Function;
 
-  public id: string;
-
   constructor(props: DraggerManagerImplProps) {
     const { container, dnd, el, draggableId } = props;
     this.container = container;
@@ -21,12 +19,9 @@ class DraggerManagerImpl {
     this._el = el;
     this.el = el;
     this._id = draggableId;
-    // this._id = draggerKeyExtractor();
     this.dimension = {} as DraggerDimension;
     this._teardown = null;
 
-    // TODO
-    this.id = this._id;
     this.teardown = this.teardown.bind(this);
   }
 
@@ -42,10 +37,10 @@ class DraggerManagerImpl {
 
   getPath() {
     let parent = this.container;
-    const path = [this.id];
+    const path = [this.getId()];
 
     while (parent) {
-      path.unshift(parent.id);
+      path.unshift(parent.getId());
       parent = parent.getParentContainer() as any;
     }
 

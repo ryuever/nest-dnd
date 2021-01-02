@@ -2,8 +2,8 @@ import {
   getVContainer,
   containerElementFromPoint,
   closestExclusiveContainerNodeFromElement,
-} from '../../setAttributes';
-import { within, pointInRectWithOrientation } from '../../collision';
+} from '../../commons/setAttributes';
+import { within, pointInRectWithOrientation } from '../../commons/collision';
 import ContainerManagerImpl from '../../ContainerManagerImpl';
 import DraggerManagerImpl from '../../DraggerManagerImpl';
 import {
@@ -69,7 +69,7 @@ const getRawInfo = ({
       if (isNested && orientation === 'horizontal') {
         const { firstCollisionRect, secondCollisionRect } = vDragger.dimension;
         if (within(firstCollisionRect!, impactPoint)) {
-          DEBUG && console.log('hit before ', vContainer.id);
+          DEBUG && console.log('hit before ', vContainer.getId());
           return {
             candidateVDragger: vDragger,
             candidateVDraggerIndex: i,
@@ -79,7 +79,7 @@ const getRawInfo = ({
         }
 
         if (within(secondCollisionRect!, impactPoint)) {
-          DEBUG && console.log('hit after ', vContainer.id);
+          DEBUG && console.log('hit after ', vContainer.getId());
           return {
             candidateVDragger: vDragger,
             candidateVDraggerIndex: i,
@@ -90,7 +90,7 @@ const getRawInfo = ({
       } else {
         const { rect } = vDragger.dimension;
         if (within(rect, impactPoint)) {
-          DEBUG && console.log('hit main ', vContainer.id);
+          DEBUG && console.log('hit main ', vContainer.getId());
           const position = pointInRectWithOrientation(
             impactPoint,
             rect,

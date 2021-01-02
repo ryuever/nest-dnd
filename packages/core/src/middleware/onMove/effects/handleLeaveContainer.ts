@@ -1,4 +1,4 @@
-import report from '../../../reporter';
+import report from '../../../commons/reporter';
 import {
   OnMoveHandleContext,
   OnMoveArgs,
@@ -23,9 +23,9 @@ const handleLeaveContainer = (args: any, ctx: object, actions: Action) => {
     (prevImpactVContainer && !currentImpactVContainer) ||
     (prevImpactVContainer &&
       currentImpactVContainer &&
-      prevImpactVContainer.id !== currentImpactVContainer.id)
+      prevImpactVContainer.getId() !== currentImpactVContainer.getId())
   ) {
-    const effectsManager = dndEffects.find(prevImpactVContainer.id);
+    const effectsManager = dndEffects.find(prevImpactVContainer.getId());
     report.logLeaveContainer(prevImpactVContainer);
 
     context.action = {
