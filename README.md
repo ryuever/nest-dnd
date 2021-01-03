@@ -11,4 +11,14 @@ $ yarn storybook
 
 ## Basic examples
 
-![basic](./docs/basic.gif)
+### Vertical
+
+![vertical](./docs/vertical.gif)
+
+### Horizontal
+
+![horizontal](./docs/horizontal.gif)
+
+### Nested Group
+
+![nest](./docs/nest.gif)
