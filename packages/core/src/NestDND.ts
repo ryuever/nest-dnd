@@ -10,8 +10,9 @@ import {
 
 import getDimensions from './middleware/onStart/getDimensions';
 import getDimensionsNested from './middleware/onStart/getDimensionsNested';
-import validateContainers from './middleware/onStart/validateContainers';
+// import validateContainers from './middleware/onStart/validateContainers';
 import attemptToCreateClone from './middleware/onStart/attemptToCreateClone';
+import prepareContainerKey from './middleware/onStart/prepareContainerKey';
 
 import syncCopyPosition from './middleware/onMove/syncCopyPosition';
 import addIntermediateCtxValue from './middleware/onMove/addIntermediateCtxValue';
@@ -34,6 +35,7 @@ import MouseSensor from './sensors/mouse';
 import DndEffects from './middleware/onMove/effects/DndEffects';
 import { Impact, Extra } from './types';
 class NestDND {
+  private _candidateContainerMap: Map<string, ContainerManagerImpl> = new Map();
   public keyToContainerMap: Map<string, ContainerManagerImpl> = new Map();
   public containerToDraggersMap: WeakMap<
     ContainerManagerImpl,
@@ -62,6 +64,9 @@ class NestDND {
     this.onMoveHandler = null;
     this.getDraggers = this.getDraggers.bind(this);
     this.getContainers = this.getContainers.bind(this);
+    this.updateCandidateContainerMap = this.updateCandidateContainerMap.bind(
+      this
+    );
 
     this.onStartHandler = new Sabar({
       ctx: {
@@ -71,6 +76,7 @@ class NestDND {
         dndConfig: this.dndConfig,
         prevImpact: {},
         dndEffects: new DndEffects(),
+        updateCandidateContainerMap: this.updateCandidateContainerMap,
       },
     });
 
@@ -85,9 +91,10 @@ class NestDND {
     });
 
     this.onStartHandler.use(
+      prepareContainerKey,
       getDimensions,
       getDimensionsNested,
-      validateContainers,
+      // validateContainers,
       attemptToCreateClone
     );
     this.onMoveHandler.use(
@@ -117,7 +124,7 @@ class NestDND {
       [key: string]: any;
     };
 
-    this.keyToContainerMap.forEach((value, key) => {
+    this._candidateContainerMap.forEach((value, key) => {
       result[key] = value;
     });
 
@@ -129,12 +136,36 @@ class NestDND {
       [key: string]: any;
     };
 
+    this._candidateContainerMap.forEach(container => {
+      container.children.items.forEach(dragger => {
+        result[dragger.getId()] = dragger;
+      });
+    });
+    return result;
+  }
+
+  getFullDraggers() {
+    const result = {} as {
+      [key: string]: any;
+    };
+
     this.keyToContainerMap.forEach(container => {
       container.children.items.forEach(dragger => {
         result[dragger.getId()] = dragger;
       });
     });
     return result;
+  }
+
+  updateCandidateContainerMap(draggerGroupId: string) {
+    const candidateContainerMap = new Map();
+    this.keyToContainerMap.forEach(container => {
+      if (container.getGroupId() === draggerGroupId) {
+        candidateContainerMap.set(container.getId(), container);
+      }
+    });
+
+    this._candidateContainerMap = candidateContainerMap;
   }
 
   addContainer(props: AddContainerProps) {
@@ -202,7 +233,7 @@ class NestDND {
 
   getDragger(el: HTMLElement) {
     const draggerId = el.getAttribute('data-dragger-id');
-    const draggers = this.getDraggers();
+    const draggers = this.getFullDraggers();
     return draggers[draggerId!];
   }
 }

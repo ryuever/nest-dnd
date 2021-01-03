@@ -2,14 +2,13 @@ import React, { useRef, useCallback, useContext, useEffect } from 'react';
 import invariant from 'invariant';
 import cloneWithRef from './cloneWithRef';
 import context from './context';
-import { ContainerManagerImpl, DraggerManagerImpl } from '@nest-dnd/core';
-// import { ContainerManagerImpl, DraggerManagerImpl } from '../../core/src';
+// import { ContainerManagerImpl, DraggerManagerImpl } from '@nest-dnd/core';
+import { ContainerManagerImpl, DraggerManagerImpl } from '../../core/src';
 
 // https://github.com/react-dnd/react-dnd/blob/main/packages/react-dnd/src/common/wrapConnectorHooks.ts#L21
 export default (props: any) => {
   const contextValues = useContext(context);
   // should be destructor or `nextContextValues.current.container` will cause error
-  // const nextContextValues = useRef({ ...contextValues });
   const containerTeardownRef = useRef<Function>();
   const draggerTeardownRef = useRef<Function>();
   const { provider, container } = contextValues;
@@ -35,6 +34,7 @@ export default (props: any) => {
         shouldAcceptDragger,
         transitionMode,
       },
+      groupId,
       parentContainer: container,
     });
     containerRef.current = nextContainer;

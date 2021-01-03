@@ -69,6 +69,9 @@ export type AddContainerProps = {
   containerEffect?: { ({ el }: { el: HTMLElement }): void | Function };
   draggerEffect?: DraggerEffectHandler;
   impactDraggerEffect?: ImpactDraggerEffectHandler;
+
+  // Dragger could only be placed on corresponding group.
+  groupId?: string;
 };
 
 export type AddDraggerProps = {
@@ -129,6 +132,7 @@ export interface OnStartHandlerContext {
     impactContainer: ContainerManagerImpl;
   };
   impactRawInfo: RawInfo;
+  updateCandidateContainerMap: (groupId: string) => void;
 }
 
 export interface OnMoveHandleContext {

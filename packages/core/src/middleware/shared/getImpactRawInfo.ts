@@ -152,7 +152,10 @@ const getImpactRawInfo = (args: any, ctx: object, actions: Action) => {
   // const candidateDraggerElement = draggerElementFromPoint(impactPoint);
   // The reason why use container ? because point maybe placed on the gap between
   // `container` and `dragger`.
-  const candidateContainerElement = containerElementFromPoint(impactPoint);
+  const candidateContainerElement = containerElementFromPoint(
+    impactPoint,
+    vContainers
+  );
 
   let impactRawInfo = {
     candidateVDragger: null,
