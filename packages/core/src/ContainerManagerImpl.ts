@@ -10,6 +10,7 @@ import NestDND from './NestDND';
 import SortedItems from './structure/SortedItems';
 import fluid from './transitionsHandler/fluid';
 import { setContainerAttributes } from './commons/setAttributes';
+import { DEFAULT_GROUP_ID } from './commons/constants';
 
 class ContainerManagerImpl {
   public children: SortedItems<DraggerManagerImpl>;
@@ -18,6 +19,7 @@ class ContainerManagerImpl {
   private dndConfig: NestDNDConfig;
   private _el: HTMLElement | undefined;
   private _config: ContainerConfig;
+  private _groupId: string = DEFAULT_GROUP_ID;
 
   public containerConfig: ContainerConfig;
   private _parentContainer: undefined | ContainerManagerImpl | null;
@@ -25,7 +27,15 @@ class ContainerManagerImpl {
   public dimension: ContainerDimension;
 
   constructor(props: ContainerManagerImplProps) {
-    const { dnd, dndConfig, el, config, droppableId, parentContainer } = props;
+    const {
+      dnd,
+      dndConfig,
+      el,
+      config,
+      droppableId,
+      parentContainer,
+      groupId,
+    } = props;
 
     this.dnd = dnd;
     this.dndConfig = dndConfig;
@@ -45,11 +55,27 @@ class ContainerManagerImpl {
     this._parentContainer = parentContainer;
 
     this.dimension = {} as any;
+    this._groupId = groupId || DEFAULT_GROUP_ID;
   }
 
-  setRef(el: HTMLElement) {
-    this._el = el;
-    setContainerAttributes(this, this._config);
+  getId() {
+    return this._id;
+  }
+
+  getElement() {
+    return this._el;
+  }
+
+  getGroupId() {
+    return this._groupId;
+  }
+
+  getDNDConfig() {
+    return this.dndConfig;
+  }
+
+  getDND() {
+    return this.dnd;
   }
 
   getOrientation() {
@@ -58,6 +84,11 @@ class ContainerManagerImpl {
 
   getParentContainer() {
     return this._parentContainer;
+  }
+
+  setRef(el: HTMLElement) {
+    this._el = el;
+    setContainerAttributes(this, this._config);
   }
 
   decorateDraggerEffect() {
@@ -82,28 +113,12 @@ class ContainerManagerImpl {
     return aValue - bValue;
   }
 
-  getId() {
-    return this._id;
-  }
-
-  getDNDConfig() {
-    return this.dndConfig;
-  }
-
-  getDND() {
-    return this.dnd;
-  }
-
   addSubscription(subscriber: DraggerManagerImpl) {
     this.children.add(subscriber);
     subscriber._teardown = () => {
       const index = this.children.findIndex(subscriber);
       if (index !== -1) this.children.splice(index, 1);
     };
-  }
-
-  getElement() {
-    return this._el;
   }
 }
 

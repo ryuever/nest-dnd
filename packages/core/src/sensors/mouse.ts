@@ -68,6 +68,7 @@ class Mouse {
         if (!dragger) return;
         const vContainer = dragger.container;
         // will cause sort!!!!
+
         this.onStartHandler.start({ dragger, event });
         // should be placed after sorter
         const liftUpVDraggerIndex = vContainer.children.findIndex(dragger);
@@ -105,22 +106,25 @@ class Mouse {
                 }) as MoveHandlerResult;
 
                 const { impact } = result;
-                const {
-                  dropResult: {
-                    source: { path: sourcePath },
-                  },
-                } = impact;
-                const target = impact.dropResult.target!;
-                const { path: targetPath, isForwarding } = target;
-                console.log(
-                  'impact result ',
-                  `place ${sourcePath} ${
-                    isForwarding ? 'after' : 'before'
-                  } ${targetPath}`
-                );
-                dropResult = impact.dropResult;
-                output = result.output;
-                if (impact) this.updateImpact(impact);
+
+                if (impact) {
+                  const {
+                    dropResult: {
+                      source: { path: sourcePath },
+                    },
+                  } = impact;
+                  const target = impact.dropResult.target!;
+                  const { path: targetPath, isForwarding } = target;
+                  console.log(
+                    'impact result ',
+                    `place ${sourcePath} ${
+                      isForwarding ? 'after' : 'before'
+                    } ${targetPath}`
+                  );
+                  dropResult = impact.dropResult;
+                  output = result.output;
+                  this.updateImpact(impact);
+                }
               } catch (err) {
                 console.log('err', err);
               }

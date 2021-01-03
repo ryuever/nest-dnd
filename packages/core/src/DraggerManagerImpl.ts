@@ -2,6 +2,7 @@ import { DraggerManagerImplProps, DraggerDimension, RectObject } from './types';
 import ContainerManagerImpl from './ContainerManagerImpl';
 import NestDND from './NestDND';
 import { setDraggerAttributes } from './commons/setAttributes';
+import { DEFAULT_GROUP_ID } from './commons/constants';
 
 class DraggerManagerImpl {
   private _id: string;
@@ -54,6 +55,11 @@ class DraggerManagerImpl {
 
   teardown() {
     if (typeof this._teardown === 'function') this._teardown();
+  }
+
+  getGroupId() {
+    if (this.container) return this.container.getGroupId();
+    return DEFAULT_GROUP_ID;
   }
 
   setDimension({ rect }: { rect: RectObject }) {

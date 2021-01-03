@@ -43,8 +43,6 @@ export default () => {
       return
     }
 
-    console.log('result ', dropResult)
-
     const nextData = { ...data }
 
     let removedItem = null
@@ -71,7 +69,6 @@ export default () => {
         else next.splice(itemIndex, 0, removedItem)
       }
     }, nextData)
-    console.log('next data ', nextData)
 
     setData(nextData)
   }

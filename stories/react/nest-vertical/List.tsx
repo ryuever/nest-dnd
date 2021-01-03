@@ -19,7 +19,7 @@ const Group = props => {
   const { value } = props
   const { id, data } = value
   return (
-    <Droppable droppableId={id} draggable>
+    <Droppable droppableId={id} draggable groupId="list">
       <div className="nest-group">
         <span className="nest-group-title">{id}</span>
         {data.map(value => <Item value={value} key={value.id}/>)}
@@ -91,7 +91,7 @@ export default () => {
 
   return(
     <Provider onDropEnd={dropEndHandler} >
-      <Droppable droppableId="group">
+      <Droppable droppableId="group" groupId="wrapper">
         <div className="nest-wrapper">
           {data.map(value => <Group value={value} key={value.id} />)}
         </div>

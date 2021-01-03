@@ -88,8 +88,31 @@ export const draggerElementFromPoint = (point: Point) => {
   return closest(candidate, draggerSelector);
 };
 
+const elementMatchContainers = (
+  el: HTMLElement,
+  containers: {
+    [key: string]: ContainerManagerImpl;
+  }
+) => {
+  const keys = Object.keys(containers);
+  const len = keys.length;
+
+  for (let i = 0; i < len; i++) {
+    const key = keys[i];
+    const container = containers[key];
+    if (container.getElement() === el) return true;
+  }
+
+  return false;
+};
+
 // https://developer.mozilla.org/en-US/docs/Web/API/DocumentOrShadowRoot/elementFromPoint
-export const containerElementFromPoint = (point: Point) => {
+export const containerElementFromPoint = (
+  point: Point,
+  containers: {
+    [key: string]: ContainerManagerImpl;
+  }
+) => {
   // const root = document.querySelector('.DraftEditor-root')
   const [x, y] = point;
   const elements = document.elementsFromPoint(x, y);
@@ -107,9 +130,14 @@ export const containerElementFromPoint = (point: Point) => {
     }
   }
 
+  let container = closest(candidate, containerSelector);
+
+  while (container && !elementMatchContainers(container, containers)) {
+    container = closest(container!.parentNode as any, containerSelector);
+  }
   // Maybe closest is not needed... loop `elements` util find the first
   // element matches dragger selector.
-  return closest(candidate, containerSelector);
+  return container;
 };
 
 export const closestDraggerElementFromElement = (el: HTMLElement) => {
