@@ -1,5 +1,5 @@
 {
-  "version": "0.1.7",
+  "version": "0.1.8",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -35,7 +35,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "@nest-dnd/core": "^0.1.7",
+    "@nest-dnd/core": "^0.1.8",
     "invariant": "^2.2.4"
   },
   "publishConfig": {
