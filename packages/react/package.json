@@ -1,5 +1,5 @@
 {
-  "version": "0.1.8",
+  "version": "0.1.9",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -37,7 +37,7 @@
     "tslib": "^2.0.0"
   },
   "dependencies": {
-    "@nest-dnd/core": "^0.1.8",
+    "@nest-dnd/core": "^0.1.9",
     "invariant": "^2.2.4"
   },
   "publishConfig": {
