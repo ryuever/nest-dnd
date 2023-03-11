@@ -9,6 +9,12 @@ $ yarn install
 $ yarn storybook
 ```
 
+## How to publish 
+
+```bash
+$ lerna publish
+```
+
 ## Basic examples
 
 ### Vertical
